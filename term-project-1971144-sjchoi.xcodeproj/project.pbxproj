@@ -16,6 +16,13 @@
 		F5C605672832130B00A87286 /* term_project_1971144_sjchoiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605662832130B00A87286 /* term_project_1971144_sjchoiTests.swift */; };
 		F5C605712832130B00A87286 /* term_project_1971144_sjchoiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605702832130B00A87286 /* term_project_1971144_sjchoiUITests.swift */; };
 		F5C605732832130B00A87286 /* term_project_1971144_sjchoiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605722832130B00A87286 /* term_project_1971144_sjchoiUITestsLaunchTests.swift */; };
+		F5C605802832132F00A87286 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C6057F2832132F00A87286 /* Post.swift */; };
+		F5C605822832153B00A87286 /* PostGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605812832153B00A87286 /* PostGroup.swift */; };
+		F5C605842832155800A87286 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605832832155800A87286 /* Database.swift */; };
+		F5C605862832158E00A87286 /* DbMemory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605852832158E00A87286 /* DbMemory.swift */; };
+		F5C60588283216ED00A87286 /* ExtendedDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C60587283216ED00A87286 /* ExtendedDate.swift */; };
+		F5C6058A283217E900A87286 /* PostGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C60589283217E900A87286 /* PostGroupViewController.swift */; };
+		F5C6058C28322F7500A87286 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C6058B28322F7500A87286 /* PostDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +56,13 @@
 		F5C6056C2832130B00A87286 /* term-project-1971144-sjchoiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "term-project-1971144-sjchoiUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5C605702832130B00A87286 /* term_project_1971144_sjchoiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = term_project_1971144_sjchoiUITests.swift; sourceTree = "<group>"; };
 		F5C605722832130B00A87286 /* term_project_1971144_sjchoiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = term_project_1971144_sjchoiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F5C6057F2832132F00A87286 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		F5C605812832153B00A87286 /* PostGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGroup.swift; sourceTree = "<group>"; };
+		F5C605832832155800A87286 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		F5C605852832158E00A87286 /* DbMemory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DbMemory.swift; sourceTree = "<group>"; };
+		F5C60587283216ED00A87286 /* ExtendedDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedDate.swift; sourceTree = "<group>"; };
+		F5C60589283217E900A87286 /* PostGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostGroupViewController.swift; sourceTree = "<group>"; };
+		F5C6058B28322F7500A87286 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +120,13 @@
 				F5C605582832130A00A87286 /* Assets.xcassets */,
 				F5C6055A2832130A00A87286 /* LaunchScreen.storyboard */,
 				F5C6055D2832130A00A87286 /* Info.plist */,
+				F5C6057F2832132F00A87286 /* Post.swift */,
+				F5C605812832153B00A87286 /* PostGroup.swift */,
+				F5C605832832155800A87286 /* Database.swift */,
+				F5C605852832158E00A87286 /* DbMemory.swift */,
+				F5C60587283216ED00A87286 /* ExtendedDate.swift */,
+				F5C60589283217E900A87286 /* PostGroupViewController.swift */,
+				F5C6058B28322F7500A87286 /* PostDetailViewController.swift */,
 			);
 			path = "term-project-1971144-sjchoi";
 			sourceTree = "<group>";
@@ -258,9 +279,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5C605842832155800A87286 /* Database.swift in Sources */,
 				F5C605542832130700A87286 /* ViewController.swift in Sources */,
 				F5C605502832130700A87286 /* AppDelegate.swift in Sources */,
+				F5C605862832158E00A87286 /* DbMemory.swift in Sources */,
+				F5C60588283216ED00A87286 /* ExtendedDate.swift in Sources */,
 				F5C605522832130700A87286 /* SceneDelegate.swift in Sources */,
+				F5C605822832153B00A87286 /* PostGroup.swift in Sources */,
+				F5C6058C28322F7500A87286 /* PostDetailViewController.swift in Sources */,
+				F5C6058A283217E900A87286 /* PostGroupViewController.swift in Sources */,
+				F5C605802832132F00A87286 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
