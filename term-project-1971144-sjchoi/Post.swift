@@ -23,9 +23,10 @@ class Post: NSObject /*, NSCoding*/{
     var owner: String?;  // 게시글 작성자
     var title: String;      var kind: Kind
     var content: String;    var likes: Int
+    var image: String;
    
     
-    init(date: Date, owner: String?,title:String, content: String,kind: Kind, likes:Int){
+    init(date: Date, owner: String?,title:String, content: String,kind: Kind, likes:Int, image: String){
         self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
         self.date = Date(timeInterval: 0, since: date)
         self.owner = owner;
@@ -34,6 +35,7 @@ class Post: NSObject /*, NSCoding*/{
         self.kind = kind;
         self.content = content
         self.likes = likes
+        self.image = image;
         super.init()
     }
 }
@@ -49,13 +51,19 @@ extension Post{
             let content = contents[index]
             
             let titles = ["고양이 구경하세요", "이것은 제목입니다.","게시글 올리기", "가나다라마바사"]
-            index = Int(arc4random_uniform(UInt32(contents.count)))
+            index = Int(arc4random_uniform(UInt32(titles.count)))
             let title = titles[index]
             
-            self.init(date: date ?? Date(), owner: "me", title: title, content: content, kind: kind,likes: 0)
+            let images = ["image1", "image2" ,""]
+            index = Int(arc4random_uniform(UInt32(images.count)))
+            let image = images[index]
+            
+            let likes = Int(arc4random_uniform(UInt32(30)))
+            
+            self.init(date: date ?? Date(), owner: "me", title: title, content: content, kind: kind,likes: likes, image: image)
             
         }else{
-            self.init(date: date ?? Date(), owner: "me", title: "", content: "", kind: .Etc,likes: 0)
+            self.init(date: date ?? Date(), owner: "me", title: "", content: "", kind: .Etc,likes: 0, image: "")
 
         }
     }
@@ -72,6 +80,7 @@ extension Post{        // Plan.swift
         clonee.kind = self.kind    // enum도 struct처럼 복제가 된다
         clonee.content = self.content
         clonee.likes = self.likes
+        clonee.image = self.image
         
         return clonee
     }

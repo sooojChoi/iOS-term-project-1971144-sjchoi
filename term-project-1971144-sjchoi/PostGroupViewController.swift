@@ -31,9 +31,17 @@ class PostGroupViewController: UIViewController {
         postGroupTableView.dataSource = self        // 테이블뷰의 데이터 소스로 등록
         postGroupTableView.delegate = self        // 딜리게이터로 등록
         
+        
+//        postGroupTableView.rowHeight = UITableView.automaticDimension
+//        postGroupTableView.estimatedRowHeight = UITableView.automaticDimension
+//
+        postGroupTableView.isEditing = false
+        
         // 단순히 planGroup객체만 생성한다
         postGroup = PostGroup(parentNotification: receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
         postGroup.queryData(date: Date())       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
+        
+        
     }
     
     
@@ -77,6 +85,7 @@ extension PostGroupViewController: UITableViewDataSource {
         (cell?.contentView.subviews[0] as! UILabel).text = post.title
         (cell?.contentView.subviews[1] as! UILabel).text = post.content
         (cell?.contentView.subviews[2] as! UILabel).text = post.date.toStringDateTime()
+        (cell?.contentView.subviews[5] as! UILabel).text = String(post.likes)
         
 //        cell?.accessoryType = .none
 //        cell?.accessoryView = nil
@@ -100,9 +109,14 @@ extension PostGroupViewController: UITableViewDelegate{
         tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // 이미지가 있는 게시물이면 table cell의 height가 200, 아니면 100
+        let post = postGroup.getPosts(date: selectedDate)[indexPath.row]
+        if post.image != "" {
+            return 110
+        }else{
+            return 160
+        }
     }
 
 }
