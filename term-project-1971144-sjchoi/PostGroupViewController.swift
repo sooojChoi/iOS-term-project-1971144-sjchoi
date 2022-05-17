@@ -66,7 +66,7 @@ extension PostGroupViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if let postGroup = postGroup{
-            return postGroup.getPosts(date: selectedDate).count
+            return postGroup.getPosts().count
         }
         return 0    // planGroup가 생성되기전에 호출될 수도 있다
     }
@@ -77,7 +77,7 @@ extension PostGroupViewController: UITableViewDataSource {
   
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell")
         // planGroup는 대략 1개월의 플랜을 가지고 있다.
-        let post = postGroup.getPosts(date: selectedDate)[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
+        let post = postGroup.getPosts()[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
 
 //        // 적절히 cell에 데이터를 채움
 //        cell?.textLabel!.text = plan.date.toStringDateTime()
@@ -103,15 +103,15 @@ extension PostGroupViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
 
         // 이것은 데이터베이스에 까지 영향을 미치지 않는다. 그래서 planGroup에서만 위치 변경
-        let from = postGroup.getPosts(date: selectedDate)[sourceIndexPath.row]
-        let to = postGroup.getPosts(date: selectedDate)[destinationIndexPath.row]
+        let from = postGroup.getPosts()[sourceIndexPath.row]
+        let to = postGroup.getPosts()[destinationIndexPath.row]
         postGroup.changePost(from: from, to: to)
         tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // 이미지가 있는 게시물이면 table cell의 height가 200, 아니면 100
-        let post = postGroup.getPosts(date: selectedDate)[indexPath.row]
+        let post = postGroup.getPosts()[indexPath.row]
         if post.image != "" {
             return 110
         }else{
@@ -119,4 +119,37 @@ extension PostGroupViewController: UITableViewDelegate{
         }
     }
 
+}
+extension PostGroupViewController{
+    func saveChange(post: Post?){
+        if postGroupTableView.indexPathForSelectedRow != nil {
+            postGroup.saveChange(post: post!, action: .Modify)
+        }else{
+            postGroup.saveChange(post: post!, action: .Add)
+        }
+    }
+    
+}
+
+extension PostGroupViewController{
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowPost" {
+            let postDetailViewController = segue.destination as! PostDetailViewController
+            postDetailViewController.saveChangeDelegate = saveChange
+            postDetailViewController.post = postGroup.getPosts()[postGroupTableView.indexPathForSelectedRow!.row].clone()
+            
+        }
+        
+//        if segue.identifier == "AddPlan" {
+//            print("AddPlan")
+//
+//            let planDetailViewController = segue.destination as! PlanDetailViewController
+//            planDetailViewController.saveChangeDelegate = saveChange
+//
+//            // 빈 plan을 생성하여 전달한다
+//            planDetailViewController.plan = Plan(date:nil, withData: false)
+//            planGroupTableView.selectRow(at: nil, animated: true, scrollPosition: .none)
+//
+//        }
+    }
 }

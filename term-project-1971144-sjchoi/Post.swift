@@ -60,7 +60,11 @@ extension Post{
             
             let likes = Int(arc4random_uniform(UInt32(30)))
             
-            self.init(date: date ?? Date(), owner: "me", title: title, content: content, kind: kind,likes: likes, image: image)
+            let owners = ["홍길동", "이름 뭘로하지", "고양이 집사", "공대생1","미대생3","성북구 주민"]
+            index = Int(arc4random_uniform(UInt32(owners.count)))
+            let owner = owners[index]
+            
+            self.init(date: date ?? Date(), owner: owner, title: title, content: content, kind: kind,likes: likes, image: image)
             
         }else{
             self.init(date: date ?? Date(), owner: "me", title: "", content: "", kind: .Etc,likes: 0, image: "")

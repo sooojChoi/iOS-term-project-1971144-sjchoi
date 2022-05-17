@@ -19,5 +19,5 @@ protocol Database{
     func queryPlan(fromDate: Date, toDate: Date)
 
     // 데이터베이스에 plan을 변경하고 parentNotification를 호출하여 부모에게 알림
-    func saveChange(plan: Post, action: DbAction)
+    func saveChange(post: Post, action: DbAction)
 }

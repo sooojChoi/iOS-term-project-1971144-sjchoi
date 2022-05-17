@@ -45,14 +45,14 @@ extension PostGroup{    // PlanGroup.swift
         database.queryPlan(fromDate: fromDate!, toDate: toDate!)
     }
     
-    func saveChange(plan: Post, action: DbAction){
+    func saveChange(post: Post, action: DbAction){
         // 단순히 데이터베이스에 변경요청을 하고 plans에 대해서는
         // 데이터베이스가 변경알림을 호출하는 receivingNotification에서 적용한다
-        database.saveChange(plan: plan, action: action)
+        database.saveChange(post: post, action: action)
     }
 }
 extension PostGroup{     // PlanGroup.swift
-    func getPosts(date: Date? = nil) -> [Post] {
+    func getPosts() -> [Post] {
         
 //        // plans중에서 date날짜에 있는 것만 리턴한다
 //        if let date = date{

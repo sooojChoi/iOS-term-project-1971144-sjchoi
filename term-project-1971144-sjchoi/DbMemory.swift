@@ -48,20 +48,20 @@ extension DbMemory{    // DbMemory.swift
 extension DbMemory{// DbMemory.swift
     // 주어진 플랜에 대하여 삽입, 수정, 삭제를 storage에서 하고
     // 역시 parentListener를 호출하여 이러한 사실을 알린다.
-    func saveChange(plan: Post, action: DbAction){
+    func saveChange(post: Post, action: DbAction){
         if action == .Add{
-            storage.append(plan)
+            storage.append(post)
         }else{
             for i in 0..<storage.count{
-                if plan.key == storage[i].key{
+                if post.key == storage[i].key{
                     if action == .Delete{ storage.remove(at: i) }
-                    if action == .Modify{ storage[i] = plan }
+                    if action == .Modify{ storage[i] = post }
                     break
                 }
             }
         }
         if let parentNotification = parentNotification{
-            parentNotification(plan, action)  // 변경된 내역을 알려준다
+            parentNotification(post, action)  // 변경된 내역을 알려준다
         }
     }
 }
