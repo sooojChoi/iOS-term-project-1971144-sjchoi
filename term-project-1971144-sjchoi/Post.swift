@@ -23,7 +23,7 @@ class Post: NSObject /*, NSCoding*/{
     var owner: String?;  // 게시글 작성자
     var title: String;      var kind: Kind
     var content: String;    var likes: Int
-    var image: String;
+    var image: String;  
    
     
     init(date: Date, owner: String?,title:String, content: String,kind: Kind, likes:Int, image: String){

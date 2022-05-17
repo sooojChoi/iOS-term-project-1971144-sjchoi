@@ -22,7 +22,6 @@ class PostGroupViewController: UIViewController {
     @IBOutlet weak var postGroupTableView: UITableView!
     var postGroup: PostGroup!
     
-    var selectedDate: Date? = Date()
     
     
     override func viewDidLoad() {
@@ -87,6 +86,8 @@ extension PostGroupViewController: UITableViewDataSource {
         (cell?.contentView.subviews[2] as! UILabel).text = post.date.toStringDateTime()
         (cell?.contentView.subviews[5] as! UILabel).text = String(post.likes)
         
+ 
+        
 //        cell?.accessoryType = .none
 //        cell?.accessoryView = nil
 //        if indexPath.row % 2 == 0 {
@@ -115,8 +116,18 @@ extension PostGroupViewController: UITableViewDelegate{
         if post.image != "" {
             return 110
         }else{
-            return 160
+            return 120
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected cell \(indexPath.row)")
+        let svc = self.storyboard?.instantiateViewController(withIdentifier: "PostDatailViewController") as! PostDetailViewController
+        svc.saveChangeDelegate = saveChange
+        svc.post = postGroup.getPosts()[postGroupTableView.indexPathForSelectedRow!.row].clone()
+        
+        navigationController?.pushViewController(svc, animated: true)
+
     }
 
 }
@@ -133,12 +144,15 @@ extension PostGroupViewController{
 
 extension PostGroupViewController{
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowPost" {
-            let postDetailViewController = segue.destination as! PostDetailViewController
-            postDetailViewController.saveChangeDelegate = saveChange
-            postDetailViewController.post = postGroup.getPosts()[postGroupTableView.indexPathForSelectedRow!.row].clone()
-            
-        }
+        print("prepare")
+//        if segue.identifier == "ShowPost" {
+//            let postDetailViewController = segue.destination as! PostDetailViewController
+//            postDetailViewController.saveChangeDelegate = saveChange
+//            postDetailViewController.post = postGroup.getPosts()[postGroupTableView.indexPathForSelectedRow!.row].clone()
+//
+//        }
+       
+        
         
 //        if segue.identifier == "AddPlan" {
 //            print("AddPlan")

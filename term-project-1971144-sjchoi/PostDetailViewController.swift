@@ -32,6 +32,8 @@ class PostDetailViewController: UIViewController {
         super.viewDidLoad()
 
         post = post ?? Post(date: nil, withData: true)
+        dateTextView.text = post?.date.toStringDateTime()
+        titleText.text = post?.title
         owner.text = post?.owner
         contents.text = post?.content
         
