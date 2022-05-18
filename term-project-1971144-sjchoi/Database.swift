@@ -14,10 +14,24 @@ enum DbAction{
 protocol Database{
     // 생성자, 데이터베이스에 변경이 생기면 parentNotification를 호출하여 부모에게 알림
     init(parentNotification: ((Post?, DbAction?) -> Void)? )
+    
+  
 
-    // fromDate ~ toDate 사이의 Plan을 읽어 parentNotification를 호출하여 부모에게 알림
-    func queryPlan(fromDate: Date, toDate: Date)
-
-    // 데이터베이스에 plan을 변경하고 parentNotification를 호출하여 부모에게 알림
+    // Post를 읽어 parentNotification를 호출하여 부모에게 알림
+    func queryPost()
+    
+    
+    // 데이터베이스에 post를 변경하고 parentNotification를 호출하여 부모에게 알림
     func saveChange(post: Post, action: DbAction)
+
+}
+
+protocol PostFieldDatabase{
+    init(postFieldParentNotification: ((PostField?, DbAction?) -> Void)? )
+    
+    // PostField를 읽어 parentNotification를 호출하여 부모에게 알림
+    func queryPostField()
+    
+    // 데이터베이스에 postField를 변경하고 parentNotification를 호출하여 부모에게 알림
+    func saveFieldChange(postField: PostField, action:DbAction)
 }

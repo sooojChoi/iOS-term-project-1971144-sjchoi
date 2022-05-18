@@ -10,7 +10,6 @@ import Foundation
 class PostGroup: NSObject{
     var posts = [Post]()            // var plans: [Plan] = []와 동일, 퀴리를 만족하는 plan들만 저장한다.
     var database: Database!
-    var fromDate, toDate: Date?     // queryPlan 함수에서 주어진다
     var parentNotification: ((Post?, DbAction?) -> Void)?
     
     init(parentNotification: ((Post?, DbAction?) -> Void)? ){
@@ -36,13 +35,10 @@ class PostGroup: NSObject{
 
 extension PostGroup{    // PlanGroup.swift
     
-    func queryData(date: Date){
+    func queryData(){
         posts.removeAll()    // 새로운 쿼리에 맞는 데이터를 채우기 위해 기존 데이터를 전부 지운다
-        
-        // date가 속한 1개월 +-알파만큼 가져온다
-        fromDate = date.firstOfMonth().firstOfWeek()// 1일이 속한 일요일을 시작시간
-        toDate = date.lastOfMonth().lastOfWeek()    // 이달 마지막일이 속한 토요일을 마감시간
-        database.queryPlan(fromDate: fromDate!, toDate: toDate!)
+       
+        database.queryPost()
     }
     
     func saveChange(post: Post, action: DbAction){
@@ -73,12 +69,7 @@ extension PostGroup{     // PlanGroup.swift
     
     private func count() -> Int{ return posts.count }
     
-    func isIn(date: Date) -> Bool{
-        if let from = fromDate, let to = toDate{
-            return (date >= from && date <= to) ? true: false
-        }
-        return false
-    }
+   
     
     private func find(_ key: String) -> Int?{
         for i in 0..<posts.count{

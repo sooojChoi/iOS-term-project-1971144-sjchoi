@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F5320D112834B361009624EA /* FieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5320D102834B361009624EA /* FieldViewController.swift */; };
+		F5320D132834B497009624EA /* PostField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5320D122834B497009624EA /* PostField.swift */; };
+		F5320D152834B8C3009624EA /* PostFieldGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5320D142834B8C3009624EA /* PostFieldGroup.swift */; };
 		F5C605502832130700A87286 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C6054F2832130700A87286 /* AppDelegate.swift */; };
 		F5C605522832130700A87286 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605512832130700A87286 /* SceneDelegate.swift */; };
 		F5C605542832130700A87286 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605532832130700A87286 /* ViewController.swift */; };
@@ -43,6 +46,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F5320D102834B361009624EA /* FieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldViewController.swift; sourceTree = "<group>"; };
+		F5320D122834B497009624EA /* PostField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostField.swift; sourceTree = "<group>"; };
+		F5320D142834B8C3009624EA /* PostFieldGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFieldGroup.swift; sourceTree = "<group>"; };
 		F5C6054C2832130700A87286 /* term-project-1971144-sjchoi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "term-project-1971144-sjchoi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5C6054F2832130700A87286 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5C605512832130700A87286 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +133,9 @@
 				F5C60587283216ED00A87286 /* ExtendedDate.swift */,
 				F5C60589283217E900A87286 /* PostGroupViewController.swift */,
 				F5C6058B28322F7500A87286 /* PostDetailViewController.swift */,
+				F5320D102834B361009624EA /* FieldViewController.swift */,
+				F5320D122834B497009624EA /* PostField.swift */,
+				F5320D142834B8C3009624EA /* PostFieldGroup.swift */,
 			);
 			path = "term-project-1971144-sjchoi";
 			sourceTree = "<group>";
@@ -283,9 +292,12 @@
 				F5C605542832130700A87286 /* ViewController.swift in Sources */,
 				F5C605502832130700A87286 /* AppDelegate.swift in Sources */,
 				F5C605862832158E00A87286 /* DbMemory.swift in Sources */,
+				F5320D132834B497009624EA /* PostField.swift in Sources */,
 				F5C60588283216ED00A87286 /* ExtendedDate.swift in Sources */,
 				F5C605522832130700A87286 /* SceneDelegate.swift in Sources */,
 				F5C605822832153B00A87286 /* PostGroup.swift in Sources */,
+				F5320D152834B8C3009624EA /* PostFieldGroup.swift in Sources */,
+				F5320D112834B361009624EA /* FieldViewController.swift in Sources */,
 				F5C6058C28322F7500A87286 /* PostDetailViewController.swift in Sources */,
 				F5C6058A283217E900A87286 /* PostGroupViewController.swift in Sources */,
 				F5C605802832132F00A87286 /* Post.swift in Sources */,

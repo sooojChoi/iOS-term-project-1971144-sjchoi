@@ -38,7 +38,7 @@ class PostGroupViewController: UIViewController {
         
         // 단순히 planGroup객체만 생성한다
         postGroup = PostGroup(parentNotification: receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
-        postGroup.queryData(date: Date())       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
+        postGroup.queryData()       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
         
         
     }
@@ -101,14 +101,14 @@ extension PostGroupViewController: UITableViewDataSource {
 }
 extension PostGroupViewController: UITableViewDelegate{
     
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-
-        // 이것은 데이터베이스에 까지 영향을 미치지 않는다. 그래서 planGroup에서만 위치 변경
-        let from = postGroup.getPosts()[sourceIndexPath.row]
-        let to = postGroup.getPosts()[destinationIndexPath.row]
-        postGroup.changePost(from: from, to: to)
-        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
-    }
+//    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//
+//        // 이것은 데이터베이스에 까지 영향을 미치지 않는다. 그래서 planGroup에서만 위치 변경
+//        let from = postGroup.getPosts()[sourceIndexPath.row]
+//        let to = postGroup.getPosts()[destinationIndexPath.row]
+//        postGroup.changePost(from: from, to: to)
+//        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
+//    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // 이미지가 있는 게시물이면 table cell의 height가 200, 아니면 100
