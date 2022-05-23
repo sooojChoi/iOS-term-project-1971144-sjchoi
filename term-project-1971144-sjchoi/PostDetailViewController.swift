@@ -19,23 +19,34 @@ import UIKit
 
 class PostDetailViewController: UIViewController {
     
-    @IBOutlet weak var owner: UILabel!
-    @IBOutlet weak var dateTextView: UILabel!
-    @IBOutlet weak var titleText: UILabel!
-    @IBOutlet weak var contents: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var writerTextView: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var contentsLabel: UILabel!
+    @IBOutlet weak var numOfCommentsLabel: UILabel!
+    @IBOutlet weak var likesLabel: UILabel!
+    
     
     var post: Post?
     var saveChangeDelegate: ((Post)->Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        titleText.sizeToFit()
+//        titleText.layoutIfNeeded()
+        //(titleStackView.subviews[0] as! UILabel).sizeToFit()
+       // (titleStackView.subviews[0] as! UILabel).layoutIfNeeded()
+        
+        //titleLabel.sizeToFit()
 
-        post = post ?? Post(date: nil, withData: true)
-        dateTextView.text = post?.date.toStringDateTime()
-        titleText.text = post?.title
-        owner.text = post?.owner
-        contents.text = post?.content
+        post = post ?? Post(withData: true)
+        dateLabel.text = post?.date.toStringDateTime()
+        titleLabel.text = post?.title
+        writerTextView.text = post?.owner
+        contentsLabel.text = post?.content
+        numOfCommentsLabel.text = String(post?.numOfComments ?? 0)
+        likesLabel.text = String(post?.likes ?? 0)
         
     }
     

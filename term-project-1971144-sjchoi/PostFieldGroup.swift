@@ -11,6 +11,8 @@ class PostFieldGroup: NSObject{
     var postFields = [PostField]()
     var database: PostFieldDatabase!
     var postFieldParentNotification: ((PostField?, DbAction?) -> Void)?
+   
+    
     
     init(postFieldParentNotification: ((PostField?, DbAction?) -> Void)? ){
         super.init()

@@ -48,7 +48,7 @@ extension PostGroup{    // PlanGroup.swift
     }
 }
 extension PostGroup{     // PlanGroup.swift
-    func getPosts() -> [Post] {
+    func getPosts(fieldTitle:String?) -> [Post] {
         
 //        // plans중에서 date날짜에 있는 것만 리턴한다
 //        if let date = date{
@@ -62,6 +62,17 @@ extension PostGroup{     // PlanGroup.swift
 //            }
 //            return postForDate
 //        }
+        
+        // 해당 게시판의 글만 가져온다.
+        if let fieldTitle = fieldTitle{
+            var postForField: [Post] = []
+            for post in posts{
+                if post.kind == fieldTitle {
+                    postForField.append(post)
+                }
+            }
+            return postForField
+        }
         return posts
     }
 }

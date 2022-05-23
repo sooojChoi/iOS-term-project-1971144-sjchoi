@@ -77,8 +77,9 @@ extension FieldViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected cell \(indexPath.row)")
+        let field = fieldGroup.getPostFields()[indexPath.row]
         let svc = self.storyboard?.instantiateViewController(withIdentifier: "PostGroupViewController") as! PostGroupViewController
-//        svc.saveChangeDelegate = saveChange
+        svc.appTitleString = field.name
 //        svc.post = postGroup.getPosts()[postGroupTableView.indexPathForSelectedRow!.row].clone()
         
         navigationController?.pushViewController(svc, animated: true)

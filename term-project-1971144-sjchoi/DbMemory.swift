@@ -24,7 +24,7 @@ class DbMemory: Database {
         for _ in 0...amount{
             let delta = Int(arc4random_uniform(UInt32(amount))) - amount/2
             let date = Date(timeInterval: TimeInterval(delta*24*60*60), since: Date())
-            storage.append(Post(date: date, withData: true))
+            storage.append(Post(withData: true))
             print("새로 추가")
         }
     }

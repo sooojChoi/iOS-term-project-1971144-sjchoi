@@ -22,6 +22,8 @@ class PostGroupViewController: UIViewController {
     @IBOutlet weak var postGroupTableView: UITableView!
     var postGroup: PostGroup!
     
+    @IBOutlet weak var fieldTitle: UINavigationItem!
+    var appTitleString: String?
     
     
     override func viewDidLoad() {
@@ -40,7 +42,7 @@ class PostGroupViewController: UIViewController {
         postGroup = PostGroup(parentNotification: receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
         postGroup.queryData()       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
         
-        
+        fieldTitle.title = appTitleString
     }
     
     
@@ -65,7 +67,7 @@ extension PostGroupViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if let postGroup = postGroup{
-            return postGroup.getPosts().count
+            return postGroup.getPosts(fieldTitle: appTitleString).count
         }
         return 0    // planGroup가 생성되기전에 호출될 수도 있다
     }
@@ -76,7 +78,7 @@ extension PostGroupViewController: UITableViewDataSource {
   
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell")
         // planGroup는 대략 1개월의 플랜을 가지고 있다.
-        let post = postGroup.getPosts()[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
+        let post = postGroup.getPosts(fieldTitle: appTitleString)[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
 
 //        // 적절히 cell에 데이터를 채움
 //        cell?.textLabel!.text = plan.date.toStringDateTime()
@@ -84,7 +86,8 @@ extension PostGroupViewController: UITableViewDataSource {
         (cell?.contentView.subviews[0] as! UILabel).text = post.title
         (cell?.contentView.subviews[1] as! UILabel).text = post.content
         (cell?.contentView.subviews[2] as! UILabel).text = post.date.toStringDateTime()
-        (cell?.contentView.subviews[5] as! UILabel).text = String(post.likes)
+        (cell?.contentView.subviews[4] as! UILabel).text = String(post.likes)
+        (cell?.contentView.subviews[5] as! UILabel).text = String(post.numOfComments)
         
  
         
@@ -112,19 +115,20 @@ extension PostGroupViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // 이미지가 있는 게시물이면 table cell의 height가 200, 아니면 100
-        let post = postGroup.getPosts()[indexPath.row]
-        if post.image != "" {
-            return 110
-        }else{
-            return 120
-        }
+        let post = postGroup.getPosts(fieldTitle: appTitleString)[indexPath.row]
+//        if post.image != "" {
+//            return 110
+//        }else{
+//            return 120
+//        }
+        return 110
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("selected cell \(indexPath.row)")
         let svc = self.storyboard?.instantiateViewController(withIdentifier: "PostDatailViewController") as! PostDetailViewController
         svc.saveChangeDelegate = saveChange
-        svc.post = postGroup.getPosts()[postGroupTableView.indexPathForSelectedRow!.row].clone()
+        svc.post = postGroup.getPosts(fieldTitle: appTitleString)[postGroupTableView.indexPathForSelectedRow!.row].clone()
         
         navigationController?.pushViewController(svc, animated: true)
 

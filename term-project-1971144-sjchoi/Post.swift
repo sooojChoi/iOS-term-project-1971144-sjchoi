@@ -9,24 +9,25 @@ import Foundation
 
 
 class Post: NSObject /*, NSCoding*/{
-    enum Kind: Int {
-        case Todo = 0, Meeting, Study, Etc
-        func toString() -> String{
-            switch self {
-                case .Todo: return "할일";     case .Meeting: return "미팅"
-                case .Study: return "공부";    case .Etc: return "기타"
-            }
-        }
-        static var count: Int { return Kind.Etc.rawValue + 1}
-    }
+//    enum Kind: Int {
+//        case Todo = 0, Meeting, Study, Etc
+//        func toString() -> String{
+//            switch self {
+//                case .Todo: return "할일";     case .Meeting: return "미팅"
+//                case .Study: return "공부";    case .Etc: return "기타"
+//            }
+//        }
+//        static var count: Int { return Kind.Etc.rawValue + 1}
+//    }
     var key: String;        var date: Date
     var owner: String?;  // 게시글 작성자
-    var title: String;      var kind: Kind
+    var title: String;     // var kind: Kind
     var content: String;    var likes: Int
-    var image: String;  
+    var image: String;      var kind: String;
+    var numOfComments:Int;
    
     
-    init(date: Date, owner: String?,title:String, content: String,kind: Kind, likes:Int, image: String){
+    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:Int, image: String, numOfComments: Int){
         self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
         self.date = Date(timeInterval: 0, since: date)
         self.owner = owner;
@@ -36,21 +37,23 @@ class Post: NSObject /*, NSCoding*/{
         self.content = content
         self.likes = likes
         self.image = image;
+        self.numOfComments = numOfComments;
         super.init()
     }
 }
 
 extension Post{
-    convenience init(date: Date? = nil, withData: Bool = false){
+    convenience init(withData: Bool = false){
         if withData == true{
-            var index = Int(arc4random_uniform(UInt32(Kind.count)))
-            let kind = Kind(rawValue: index)! // 이것의 타입은 옵셔널이다. Option+click해보라
+            let kinds = ["자유게시판", "고양이 게시판", "스터디 게시판", "성북구 주민 게시판"]
+            var index = Int(arc4random_uniform(UInt32(kinds.count)))
+            let kind = kinds[index] // 이것의 타입은 옵셔널이다. Option+click해보라
         
-            let contents = ["이것은 내용입니다.", "이 문장이 다 보일까?", "랜덤 글쓰기 재미있다","고양이는 정말 귀여워"]
+            let contents = ["이것은 내용입니다.","가나다라마바사아자차카타파하 이것은 정말 긴 글쓰기를 테스트하는 중입니다.","가나다라마바사아자차카타파하 이것은 정말 긴 글쓰기를 테스트하는 중입니다.","가나다라마바사아자차카타파하 이것은 정말 긴 글쓰기를 테스트하는 중입니다.", "랜덤 글쓰기 재미있다","고양이는 정말 귀여워"]
             index = Int(arc4random_uniform(UInt32(contents.count)))
             let content = contents[index]
             
-            let titles = ["고양이 구경하세요", "이것은 제목입니다.","게시글 올리기", "가나다라마바사"]
+            let titles = ["고양이 구경하세요", "이것은 제목입니다.", "가나다라마바사아자차카타파하 이것은 정말 긴 제목을 테스트하는 중입니다.", "가나다라마바사아자차카타파하 이것은 정말 긴 제목을 테스트하는 중입니다."]
             index = Int(arc4random_uniform(UInt32(titles.count)))
             let title = titles[index]
             
@@ -64,10 +67,10 @@ extension Post{
             index = Int(arc4random_uniform(UInt32(owners.count)))
             let owner = owners[index]
             
-            self.init(date: date ?? Date(), owner: owner, title: title, content: content, kind: kind,likes: likes, image: image)
+            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: likes, image: image, numOfComments: 0)
             
         }else{
-            self.init(date: date ?? Date(), owner: "me", title: "", content: "", kind: .Etc,likes: 0, image: "")
+            self.init(date: Date(), owner: "me", title: "", content: "", kind: "",likes: 0, image: "", numOfComments: 0)
 
         }
     }
@@ -85,6 +88,7 @@ extension Post{        // Plan.swift
         clonee.content = self.content
         clonee.likes = self.likes
         clonee.image = self.image
+        clonee.numOfComments = self.numOfComments
         
         return clonee
     }
