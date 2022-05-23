@@ -26,9 +26,12 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var numOfCommentsLabel: UILabel!
     @IBOutlet weak var likesLabel: UILabel!
     
+    @IBOutlet weak var textView: UITextField!
+    @IBOutlet weak var textFieldStackView: UIStackView!
     
     var post: Post?
     var saveChangeDelegate: ((Post)->Void)?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +50,38 @@ class PostDetailViewController: UIViewController {
         contentsLabel.text = post?.content
         numOfCommentsLabel.text = String(post?.numOfComments ?? 0)
         likesLabel.text = String(post?.likes ?? 0)
+    
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+       
         
     }
+    
+    
+    
+    @objc func dismissKeyboard(sender: UITapGestureRecognizer){
+        textView.resignFirstResponder()
+    }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+//        if self.view.frame.origin.y != 0 {
+//            self.view.frame.origin.y = 0
+//        }
+        self.view.frame.origin.y = 0
+
+    }
+    
     
 
    

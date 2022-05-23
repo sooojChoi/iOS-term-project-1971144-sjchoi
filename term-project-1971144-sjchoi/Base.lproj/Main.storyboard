@@ -289,12 +289,34 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="aGo-5S-U9l"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="n4m-ZA-80M"/>
                             </scrollView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="INR-Wr-h4f">
+                                <rect key="frame" x="0.0" y="804" width="414" height="50"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="댓글을 입력하세요." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qwt-0q-Oc1">
+                                        <rect key="frame" x="8" y="8" width="346.5" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsQ-PW-bOm">
+                                        <rect key="frame" x="359.5" y="8" width="46.5" height="34"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="paperplane" catalog="system">
+                                            <color key="baseForegroundColor" red="1" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <directionalEdgeInsets key="directionalLayoutMargins" top="8" leading="8" bottom="8" trailing="8"/>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hDb-E3-Gfi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="hDb-E3-Gfi" firstAttribute="trailing" secondItem="INR-Wr-h4f" secondAttribute="trailing" id="E3k-aM-xO7"/>
+                            <constraint firstItem="hDb-E3-Gfi" firstAttribute="bottom" secondItem="INR-Wr-h4f" secondAttribute="bottom" constant="8" id="Gyc-Hm-ymm"/>
                             <constraint firstItem="ppX-JR-0PL" firstAttribute="leading" secondItem="hDb-E3-Gfi" secondAttribute="leading" constant="15" id="Jeb-Vf-J35"/>
                             <constraint firstItem="hDb-E3-Gfi" firstAttribute="trailing" secondItem="ppX-JR-0PL" secondAttribute="trailing" constant="15" id="iaI-mV-roX"/>
+                            <constraint firstItem="INR-Wr-h4f" firstAttribute="leading" secondItem="hDb-E3-Gfi" secondAttribute="leading" id="jbd-GC-Hz8"/>
                             <constraint firstItem="hDb-E3-Gfi" firstAttribute="bottom" secondItem="ppX-JR-0PL" secondAttribute="bottom" id="pOc-wc-pVu"/>
                             <constraint firstItem="ppX-JR-0PL" firstAttribute="top" secondItem="4wg-mW-AUw" secondAttribute="top" id="tbV-UN-WGl"/>
                         </constraints>
@@ -305,6 +327,8 @@
                         <outlet property="dateLabel" destination="xRf-1Y-YwQ" id="8Lt-ho-NKK"/>
                         <outlet property="likesLabel" destination="NMn-nm-bAC" id="PwV-1R-DBj"/>
                         <outlet property="numOfCommentsLabel" destination="CDH-1m-jCJ" id="L8o-mW-Ra5"/>
+                        <outlet property="textFieldStackView" destination="INR-Wr-h4f" id="SIJ-5t-Hht"/>
+                        <outlet property="textView" destination="Qwt-0q-Oc1" id="aub-o0-aDC"/>
                         <outlet property="titleLabel" destination="Txq-yP-fyS" id="jxh-DK-JSN"/>
                         <outlet property="writerTextView" destination="hAo-8R-gWS" id="65W-5J-8j7"/>
                     </connections>
@@ -431,12 +455,16 @@
         <image name="hand.thumbsup" catalog="system" width="128" height="128"/>
         <image name="house" catalog="system" width="128" height="106"/>
         <image name="message" catalog="system" width="128" height="113"/>
+        <image name="paperplane" catalog="system" width="128" height="118"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBlueColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
