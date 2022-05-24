@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         FirebaseApp.configure() // 연결을 시작한다
 
         // 연결을 확인하기 위하여 테스트 데이터를 write해 본다
-        Firestore.firestore().collection("jmlee").document("key").setData(["name": "Jae Moon Lee"])
+      //  Firestore.firestore().collection("jmlee").document("key").setData(["name": "Jae Moon Lee"])
 
     }
 

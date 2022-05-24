@@ -17,7 +17,8 @@ class PostFieldGroup: NSObject{
     init(postFieldParentNotification: ((PostField?, DbAction?) -> Void)? ){
         super.init()
         self.postFieldParentNotification = postFieldParentNotification
-        database = PostFieldDbMemory(postFieldParentNotification: receivingNotification) // 데이터베이스 생성
+      //  database = PostFieldDbMemory(postFieldParentNotification: receivingNotification) // 데이터베이스 생성
+        database = PostFieldFirebase(postFieldParentNotification: receivingNotification)
     }
     func receivingNotification(postField: PostField?, action: DbAction?){
         // 데이터베이스로부터 메시지를 받고 이를 부모에게 전달한다
@@ -44,6 +45,12 @@ extension PostFieldGroup{    // PlanGroup.swift
         database.queryPostField()
     }
     
+    func queryDataByName(name: String){
+        postFields.removeAll()
+        
+        database.queryPostFieldByName(name: name)
+    }
+    
     func saveChange(postField: PostField, action: DbAction){
         // 단순히 데이터베이스에 변경요청을 하고 plans에 대해서는
         // 데이터베이스가 변경알림을 호출하는 receivingNotification에서 적용한다
@@ -53,18 +60,6 @@ extension PostFieldGroup{    // PlanGroup.swift
 extension PostFieldGroup{     // PlanGroup.swift
     func getPostFields() -> [PostField] {
         
-//        // plans중에서 date날짜에 있는 것만 리턴한다
-//        if let date = date{
-//            var postForDate: [Post] = []
-//            let start = date.firstOfDay()    // yyyy:mm:dd 00:00:00
-//            let end = date.lastOfDay()    // yyyy:mm”dd 23:59:59
-//            for post in posts{
-//                if post.date >= start && post.date <= end {
-//                    postForDate.append(post)
-//                }
-//            }
-//            return postForDate
-//        }
         return postFields
     }
 }

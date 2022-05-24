@@ -15,7 +15,8 @@ class PostGroup: NSObject{
     init(parentNotification: ((Post?, DbAction?) -> Void)? ){
         super.init()
         self.parentNotification = parentNotification
-        database = DbMemory(parentNotification: receivingNotification) // 데이터베이스 생성
+        //database = DbMemory(parentNotification: receivingNotification) // 데이터베이스 생성
+        database = PostDbFirebase(parentNotification: receivingNotification)
     }
     func receivingNotification(post: Post?, action: DbAction?){
         // 데이터베이스로부터 메시지를 받고 이를 부모에게 전달한다
@@ -49,19 +50,6 @@ extension PostGroup{    // PlanGroup.swift
 }
 extension PostGroup{     // PlanGroup.swift
     func getPosts(fieldTitle:String?) -> [Post] {
-        
-//        // plans중에서 date날짜에 있는 것만 리턴한다
-//        if let date = date{
-//            var postForDate: [Post] = []
-//            let start = date.firstOfDay()    // yyyy:mm:dd 00:00:00
-//            let end = date.lastOfDay()    // yyyy:mm”dd 23:59:59
-//            for post in posts{
-//                if post.date >= start && post.date <= end {
-//                    postForDate.append(post)
-//                }
-//            }
-//            return postForDate
-//        }
         
         // 해당 게시판의 글만 가져온다.
         if let fieldTitle = fieldTitle{

@@ -25,6 +25,15 @@ class PostGroupViewController: UIViewController {
     @IBOutlet weak var fieldTitle: UINavigationItem!
     var appTitleString: String?
     
+    @IBAction func addPost(_ sender: UIBarButtonItem) {
+        let svc = self.storyboard?.instantiateViewController(withIdentifier: "AddPostViewController") as! AddPostViewController
+        
+        svc.saveChangeDelegate = saveChange
+        svc.fieldName = appTitleString
+        svc.post = Post(withData: false)
+        
+        navigationController?.pushViewController(svc, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,7 +124,7 @@ extension PostGroupViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // 이미지가 있는 게시물이면 table cell의 height가 200, 아니면 100
-        let post = postGroup.getPosts(fieldTitle: appTitleString)[indexPath.row]
+     //   let post = postGroup.getPosts(fieldTitle: appTitleString)[indexPath.row]
 //        if post.image != "" {
 //            return 110
 //        }else{

@@ -28,7 +28,13 @@ class PostDetailViewController: UIViewController {
     
     @IBOutlet weak var textView: UITextField!
     @IBOutlet weak var textFieldStackView: UIStackView!
+    @IBOutlet weak var commentsTableView: UITableView!
     
+    @IBOutlet weak var likeButton: UIButton!
+    
+    @IBAction func likeButtonAction(_ sender: UIButton) {
+        print("like button is clicked.")
+    }
     var post: Post?
     var saveChangeDelegate: ((Post)->Void)?
 
@@ -42,6 +48,10 @@ class PostDetailViewController: UIViewController {
        // (titleStackView.subviews[0] as! UILabel).layoutIfNeeded()
         
         //titleLabel.sizeToFit()
+        
+        likeButton.layer.cornerRadius = 5
+        likeButton.layer.borderWidth = 1
+        likeButton.layer.borderColor = likeButton.layer.backgroundColor
 
         post = post ?? Post(withData: true)
         dateLabel.text = post?.date.toStringDateTime()

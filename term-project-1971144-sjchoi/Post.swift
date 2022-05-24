@@ -8,7 +8,7 @@
 import Foundation
 
 
-class Post: NSObject /*, NSCoding*/{
+class Post: NSObject, NSCoding{
 //    enum Kind: Int {
 //        case Todo = 0, Meeting, Study, Etc
 //        func toString() -> String{
@@ -23,11 +23,11 @@ class Post: NSObject /*, NSCoding*/{
     var owner: String?;  // 게시글 작성자
     var title: String;     // var kind: Kind
     var content: String;    var likes: Int
-    var image: String;      var kind: String;
+       var kind: String;
     var numOfComments:Int;
    
     
-    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:Int, image: String, numOfComments: Int){
+    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:Int, numOfComments: Int){
         self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
         self.date = Date(timeInterval: 0, since: date)
         self.owner = owner;
@@ -36,10 +36,36 @@ class Post: NSObject /*, NSCoding*/{
         self.kind = kind;
         self.content = content
         self.likes = likes
-        self.image = image;
+   
         self.numOfComments = numOfComments;
         super.init()
     }
+    
+    // archiving할때 호출된다
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(key, forKey: "key")       // 내부적으로 String의 encode가 호출된다
+        aCoder.encode(date, forKey: "date")
+        aCoder.encode(owner, forKey: "owner")
+        aCoder.encode(kind, forKey: "kind")
+        aCoder.encode(content, forKey: "content")
+        aCoder.encode(likes, forKey: "likes")
+        aCoder.encode(numOfComments, forKey: "numOfComments")
+        aCoder.encode(title, forKey: "title")
+    }
+    // unarchiving할때 호출된다
+    required init(coder aDecoder: NSCoder) {
+        key = aDecoder.decodeObject(forKey: "key") as! String? ?? "" // 내부적으로 String.init가 호출된다
+        date = aDecoder.decodeObject(forKey: "date") as! Date
+        owner = aDecoder.decodeObject(forKey: "owner") as? String
+        kind = aDecoder.decodeObject(forKey: "kind") as? String ?? ""
+        title = aDecoder.decodeObject(forKey: "title") as? String ?? ""
+        content = aDecoder.decodeObject(forKey: "content") as! String? ?? ""
+        likes = aDecoder.decodeObject(forKey: "likes") as? Int ?? 0
+        numOfComments = aDecoder.decodeObject(forKey: "numOfComments") as? Int ?? 0
+        
+        super.init()
+    }
+
 }
 
 extension Post{
@@ -57,9 +83,6 @@ extension Post{
             index = Int(arc4random_uniform(UInt32(titles.count)))
             let title = titles[index]
             
-            let images = ["image1", "image2" ,""]
-            index = Int(arc4random_uniform(UInt32(images.count)))
-            let image = images[index]
             
             let likes = Int(arc4random_uniform(UInt32(30)))
             
@@ -67,10 +90,10 @@ extension Post{
             index = Int(arc4random_uniform(UInt32(owners.count)))
             let owner = owners[index]
             
-            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: likes, image: image, numOfComments: 0)
+            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: likes,  numOfComments: 0)
             
         }else{
-            self.init(date: Date(), owner: "me", title: "", content: "", kind: "",likes: 0, image: "", numOfComments: 0)
+            self.init(date: Date(), owner: "me", title: "", content: "", kind: "",likes: 0, numOfComments: 0)
 
         }
     }
@@ -87,7 +110,6 @@ extension Post{        // Plan.swift
         clonee.kind = self.kind    // enum도 struct처럼 복제가 된다
         clonee.content = self.content
         clonee.likes = self.likes
-        clonee.image = self.image
         clonee.numOfComments = self.numOfComments
         
         return clonee

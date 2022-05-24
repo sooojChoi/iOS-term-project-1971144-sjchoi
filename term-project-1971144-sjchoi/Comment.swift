@@ -54,7 +54,7 @@ extension Comment{
     }
 }
 
-extension Comment{        // Plan.swift
+extension Comment{     
     func clone() -> Comment {
         let clonee = Comment()
 
