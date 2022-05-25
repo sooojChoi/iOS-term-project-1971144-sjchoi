@@ -97,7 +97,7 @@ extension Post{
             self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: likes,  numOfComments: 0, userId:"")
             
         }else{
-            self.init(date: Date(), owner: "me", title: "", content: "", kind: "",likes: 0, numOfComments: 0, userId: "")
+            self.init(date: Date(), owner: "", title: "", content: "", kind: "",likes: 0, numOfComments: 0, userId: "")
 
         }
     }

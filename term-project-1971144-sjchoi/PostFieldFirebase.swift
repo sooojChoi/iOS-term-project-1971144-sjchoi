@@ -53,7 +53,7 @@ class PostFieldFirebase: PostFieldDatabase {
 
         // 저장 형태로 만든다
         let storeDate: [String : Any] = ["name":postField.name ?? "", "data": data!]
-        reference.document(postField.key).setData(storeDate)
+        reference.document().setData(storeDate)
     }
     
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Firebase
 
 class User: NSObject, NSCoding{
 

@@ -45,12 +45,16 @@ class AddFieldViewController: UIViewController {
 
 extension AddFieldViewController{
     @IBAction func addFieldAction(_ sender: UIBarButtonItem) {
-        postField!.userId = "홍길동"
+     //   postField!.userId = "홍길동"
         if(fieldTitleTextField.text == nil){
             return
         }
         postField!.name = fieldTitleTextField.text ?? ""
         postField!.des = fieldDesTextView.text ?? ""
+        
+        let storedEmail = UserDefaults.standard.string(forKey: "email")
+        postField!.userId = storedEmail ?? ""
+        
         
         saveChangeDelegate?(postField!)
         navigationController?.popViewController(animated: true)

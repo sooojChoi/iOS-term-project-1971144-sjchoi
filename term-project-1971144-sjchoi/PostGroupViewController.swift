@@ -65,6 +65,7 @@ class PostGroupViewController: UIViewController {
     func receivingNotification(post: Post?, action: DbAction?){
         // 데이터가 올때마다 이 함수가 호출되는데 맨 처음에는 기본적으로 add라는 액션으로 데이터가 온다.
         self.postGroupTableView.reloadData()  // 속도를 증가시키기 위해 action에 따라 개별적 코딩도 가능하다.
+       
      
     }
 

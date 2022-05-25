@@ -17,6 +17,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 */
 
 import UIKit
+import Firebase
 
 class AddPostViewController: UIViewController {
     var appOwner = "홍길동"
@@ -50,15 +51,40 @@ class AddPostViewController: UIViewController {
 
     @IBAction func SaveAndBackButton(_ sender: UIBarButtonItem) {
         post!.date = Date()
-        post!.owner = "홍길동"
         post!.kind = fieldName ?? "동물 게시판"
         post!.content = contentsTextView.text ?? ""
         post!.title = titleTextField.text ?? ""
-
-        saveChangeDelegate?(post!)
-      //  dismiss(animated: true, completion: nil)
-        navigationController?.popViewController(animated: true)
         
+        let storedEmail = UserDefaults.standard.string(forKey: "email")
+        post!.userId = storedEmail ?? ""
+        
+        let ref = Firestore.firestore().collection("users")
+        let queryReference = ref.whereField("email", isEqualTo: storedEmail ?? "")
+        let _ = queryReference.addSnapshotListener(){ [self]
+            (snapshot, error) in
+            
+            if let e = error{
+                print("query error: \(e)")
+                return
+            }
+            
+            for document in snapshot!.documents {
+                
+                //let key = documentChange.document.documentID
+                let data = document.data()
+                let userData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data["data"] as! Data) as? User
+                
+                self.post!.owner = userData?.name ?? "익명"
+            }
+            
+            
+
+            saveChangeDelegate?(post!)
+          //  dismiss(animated: true, completion: nil)
+            navigationController?.popViewController(animated: true)
+        
+        }
+            
     }
     
     

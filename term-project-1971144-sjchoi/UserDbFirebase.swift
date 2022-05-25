@@ -49,7 +49,7 @@ class UserFirebase: UserDatabase{
 
         // 저장 형태로 만든다
         let storeDate: [String : Any] = ["email":user.email ?? "", "data": data!]
-        reference.document(user.email).setData(storeDate)
+        reference.document().setData(storeDate)
     }
     
     
