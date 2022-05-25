@@ -25,9 +25,10 @@ class Post: NSObject, NSCoding{
     var content: String;    var likes: Int
        var kind: String;
     var numOfComments:Int;
+    var userId:String;
    
     
-    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:Int, numOfComments: Int){
+    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:Int, numOfComments: Int, userId: String){
         self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
         self.date = Date(timeInterval: 0, since: date)
         self.owner = owner;
@@ -36,6 +37,7 @@ class Post: NSObject, NSCoding{
         self.kind = kind;
         self.content = content
         self.likes = likes
+        self.userId = userId
    
         self.numOfComments = numOfComments;
         super.init()
@@ -51,6 +53,7 @@ class Post: NSObject, NSCoding{
         aCoder.encode(likes, forKey: "likes")
         aCoder.encode(numOfComments, forKey: "numOfComments")
         aCoder.encode(title, forKey: "title")
+        aCoder.encode(userId, forKey:"userId")
     }
     // unarchiving할때 호출된다
     required init(coder aDecoder: NSCoder) {
@@ -62,6 +65,7 @@ class Post: NSObject, NSCoding{
         content = aDecoder.decodeObject(forKey: "content") as! String? ?? ""
         likes = aDecoder.decodeObject(forKey: "likes") as? Int ?? 0
         numOfComments = aDecoder.decodeObject(forKey: "numOfComments") as? Int ?? 0
+        userId = aDecoder.decodeObject(forKey: "userId") as? String ?? ""
         
         super.init()
     }
@@ -90,10 +94,10 @@ extension Post{
             index = Int(arc4random_uniform(UInt32(owners.count)))
             let owner = owners[index]
             
-            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: likes,  numOfComments: 0)
+            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: likes,  numOfComments: 0, userId:"")
             
         }else{
-            self.init(date: Date(), owner: "me", title: "", content: "", kind: "",likes: 0, numOfComments: 0)
+            self.init(date: Date(), owner: "me", title: "", content: "", kind: "",likes: 0, numOfComments: 0, userId: "")
 
         }
     }
@@ -111,6 +115,7 @@ extension Post{        // Plan.swift
         clonee.content = self.content
         clonee.likes = self.likes
         clonee.numOfComments = self.numOfComments
+        clonee.userId = self.userId
         
         return clonee
     }

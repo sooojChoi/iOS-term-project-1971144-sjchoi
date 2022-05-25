@@ -23,7 +23,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // 연결을 확인하기 위하여 테스트 데이터를 write해 본다
       //  Firestore.firestore().collection("jmlee").document("key").setData(["name": "Jae Moon Lee"])
+        
+    
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboardAuth = UIStoryboard(name: "Authentication", bundle: nil)
+        
+        // if user is logged in before
+        if UserDefaults.standard.bool(forKey: "logInStatus")==true {
+            // instantiate the main tab bar controller and set it as root view controller
+            // using the storyboard identifier we set earlier
+            let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")
+            window?.rootViewController = mainTabBarController
+        } else {
+            // if user isn't logged in
+            // instantiate the navigation controller and set it as root view controller
+            // using the storyboard identifier we set earlier
+            let loginNavController = storyboardAuth.instantiateViewController(identifier: "LogInViewController")
+            window?.rootViewController = loginNavController
+        }
 
+    }
+    
+    // 루트뷰를 변경하는 함수
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        guard let window = self.window else {
+            return
+        }
+        
+        // change the root view controller to your specific view controller
+        window.rootViewController = vc
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

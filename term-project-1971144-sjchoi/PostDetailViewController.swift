@@ -76,6 +76,8 @@ class PostDetailViewController: UIViewController {
     @objc func dismissKeyboard(sender: UITapGestureRecognizer){
         textView.resignFirstResponder()
     }
+    
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.frame.origin.y == 0 {

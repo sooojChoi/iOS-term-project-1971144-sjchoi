@@ -14,6 +14,12 @@
 		F5320D132834B497009624EA /* PostField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5320D122834B497009624EA /* PostField.swift */; };
 		F5320D152834B8C3009624EA /* PostFieldGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5320D142834B8C3009624EA /* PostFieldGroup.swift */; };
 		F54EC1AC283BACBB003EF40E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F54EC1AB283BACBB003EF40E /* GoogleService-Info.plist */; };
+		F5599AF9283DE5B700DC7B0A /* Authentication.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5599AF8283DE5B700DC7B0A /* Authentication.storyboard */; };
+		F5599AFB283DE89500DC7B0A /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5599AFA283DE89500DC7B0A /* AuthenticationViewController.swift */; };
+		F5599AFD283DED1D00DC7B0A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5599AFC283DED1D00DC7B0A /* User.swift */; };
+		F5599AFF283E05DE00DC7B0A /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5599AFE283E05DE00DC7B0A /* SignUpViewController.swift */; };
+		F5599B01283E0E5D00DC7B0A /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5599B00283E0E5D00DC7B0A /* MyPageViewController.swift */; };
+		F5599B03283E130700DC7B0A /* UserDbFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5599B02283E130700DC7B0A /* UserDbFirebase.swift */; };
 		F57B357A283D0B5D00FDBE48 /* PostDbFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57B3579283D0B5D00FDBE48 /* PostDbFirebase.swift */; };
 		F57B357C283D12C400FDBE48 /* AddPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57B357B283D12C400FDBE48 /* AddPostViewController.swift */; };
 		F57B357E283D378800FDBE48 /* MakeFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57B357D283D378800FDBE48 /* MakeFieldViewController.swift */; };
@@ -68,6 +74,12 @@
 		F5320D122834B497009624EA /* PostField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostField.swift; sourceTree = "<group>"; };
 		F5320D142834B8C3009624EA /* PostFieldGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFieldGroup.swift; sourceTree = "<group>"; };
 		F54EC1AB283BACBB003EF40E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F5599AF8283DE5B700DC7B0A /* Authentication.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Authentication.storyboard; sourceTree = "<group>"; };
+		F5599AFA283DE89500DC7B0A /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		F5599AFC283DED1D00DC7B0A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		F5599AFE283E05DE00DC7B0A /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		F5599B00283E0E5D00DC7B0A /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
+		F5599B02283E130700DC7B0A /* UserDbFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDbFirebase.swift; sourceTree = "<group>"; };
 		F57B3579283D0B5D00FDBE48 /* PostDbFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDbFirebase.swift; sourceTree = "<group>"; };
 		F57B357B283D12C400FDBE48 /* AddPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPostViewController.swift; sourceTree = "<group>"; };
 		F57B357D283D378800FDBE48 /* MakeFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeFieldViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +209,12 @@
 				F57B357D283D378800FDBE48 /* MakeFieldViewController.swift */,
 				F57B357F283D426300FDBE48 /* AddFieldViewController.swift */,
 				F57B3581283D49B900FDBE48 /* PostFieldFirebase.swift */,
+				F5599AF8283DE5B700DC7B0A /* Authentication.storyboard */,
+				F5599AFA283DE89500DC7B0A /* AuthenticationViewController.swift */,
+				F5599AFC283DED1D00DC7B0A /* User.swift */,
+				F5599AFE283E05DE00DC7B0A /* SignUpViewController.swift */,
+				F5599B00283E0E5D00DC7B0A /* MyPageViewController.swift */,
+				F5599B02283E130700DC7B0A /* UserDbFirebase.swift */,
 			);
 			path = "term-project-1971144-sjchoi";
 			sourceTree = "<group>";
@@ -331,6 +349,7 @@
 				F54EC1AC283BACBB003EF40E /* GoogleService-Info.plist in Resources */,
 				F5C605592832130A00A87286 /* Assets.xcassets in Resources */,
 				F5C605572832130700A87286 /* Main.storyboard in Resources */,
+				F5599AF9283DE5B700DC7B0A /* Authentication.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5599AFF283E05DE00DC7B0A /* SignUpViewController.swift in Sources */,
 				F5C605842832155800A87286 /* Database.swift in Sources */,
 				F5C605542832130700A87286 /* ViewController.swift in Sources */,
 				F57B357A283D0B5D00FDBE48 /* PostDbFirebase.swift in Sources */,
@@ -470,13 +490,17 @@
 				F5320D132834B497009624EA /* PostField.swift in Sources */,
 				F5C60588283216ED00A87286 /* ExtendedDate.swift in Sources */,
 				F5C605522832130700A87286 /* SceneDelegate.swift in Sources */,
+				F5599B01283E0E5D00DC7B0A /* MyPageViewController.swift in Sources */,
+				F5599AFB283DE89500DC7B0A /* AuthenticationViewController.swift in Sources */,
 				F5C605822832153B00A87286 /* PostGroup.swift in Sources */,
 				F5320D152834B8C3009624EA /* PostFieldGroup.swift in Sources */,
 				F5320D112834B361009624EA /* FieldViewController.swift in Sources */,
 				F57B357E283D378800FDBE48 /* MakeFieldViewController.swift in Sources */,
 				F5C6058C28322F7500A87286 /* PostDetailViewController.swift in Sources */,
 				F5C6058A283217E900A87286 /* PostGroupViewController.swift in Sources */,
+				F5599B03283E130700DC7B0A /* UserDbFirebase.swift in Sources */,
 				F5C605802832132F00A87286 /* Post.swift in Sources */,
+				F5599AFD283DED1D00DC7B0A /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

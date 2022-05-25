@@ -538,7 +538,7 @@
         <!--즐겨찾기 게시판-->
         <scene sceneID="31p-dC-Ef0">
             <objects>
-                <viewController id="bC4-Fa-a4b" customClass="FieldViewController" customModule="term_project_1971144_sjchoi" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FieldViewController" id="bC4-Fa-a4b" customClass="FieldViewController" customModule="term_project_1971144_sjchoi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bJz-V8-xDD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -609,12 +609,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bZ2-Fk-dzF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1428.985507246377" y="18.75"/>
+            <point key="canvasLocation" x="1397" y="19"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ToI-cu-uK3">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="O1t-wa-cfl" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" automaticallyAdjustsScrollViewInsets="NO" id="O1t-wa-cfl" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OiC-eg-J6z">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -624,11 +624,12 @@
                     <connections>
                         <segue destination="WKX-jI-GZX" kind="relationship" relationship="viewControllers" id="pzX-vT-sz2"/>
                         <segue destination="xQn-sf-rZe" kind="relationship" relationship="viewControllers" id="cQJ-Nj-ezQ"/>
+                        <segue destination="rfH-Ce-z7J" kind="relationship" relationship="viewControllers" id="1nG-cJ-CC2"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ua2-Kx-iaS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-385.50724637681162" y="19.419642857142858"/>
+            <point key="canvasLocation" x="-407" y="19"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YIn-4M-uzQ">
@@ -756,6 +757,56 @@
             </objects>
             <point key="canvasLocation" x="1954" y="775"/>
         </scene>
+        <!--My Page View Controller-->
+        <scene sceneID="och-qm-8pN">
+            <objects>
+                <viewController id="rfH-Ce-z7J" customClass="MyPageViewController" customModule="term_project_1971144_sjchoi" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ac6-4F-2Y1">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="brj-wJ-AaZ">
+                                <rect key="frame" x="170.5" y="432.5" width="73" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="로그아웃"/>
+                                <connections>
+                                    <action selector="LogOutAction:" destination="rfH-Ce-z7J" eventType="touchUpInside" id="Fyc-Ug-xgE"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIw-Ob-Hgq">
+                                <rect key="frame" x="186" y="94" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4c-W2-rgk">
+                                <rect key="frame" x="186" y="145" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hxe-Lu-aU8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KIw-Ob-Hgq" firstAttribute="centerX" secondItem="ac6-4F-2Y1" secondAttribute="centerX" id="D6Q-6r-KwG"/>
+                            <constraint firstItem="Q4c-W2-rgk" firstAttribute="top" secondItem="KIw-Ob-Hgq" secondAttribute="bottom" constant="30" id="Jq4-x5-EWg"/>
+                            <constraint firstItem="brj-wJ-AaZ" firstAttribute="centerX" secondItem="ac6-4F-2Y1" secondAttribute="centerX" id="X1j-rE-l1r"/>
+                            <constraint firstItem="brj-wJ-AaZ" firstAttribute="centerY" secondItem="ac6-4F-2Y1" secondAttribute="centerY" id="bOY-7e-UHW"/>
+                            <constraint firstItem="KIw-Ob-Hgq" firstAttribute="top" secondItem="hxe-Lu-aU8" secondAttribute="top" constant="50" id="mbH-fc-OYM"/>
+                            <constraint firstItem="Q4c-W2-rgk" firstAttribute="centerX" secondItem="ac6-4F-2Y1" secondAttribute="centerX" id="q33-3g-rPw"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="person" catalog="system" id="ZMH-SH-ibf"/>
+                    <connections>
+                        <outlet property="emailLabel" destination="KIw-Ob-Hgq" id="hr8-6e-Hla"/>
+                        <outlet property="nameLabe" destination="Q4c-W2-rgk" id="yCo-Jg-ufp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ORK-FH-Xxq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-370" y="-680"/>
+        </scene>
     </scenes>
     <resources>
         <image name="hand.thumbsup" catalog="system" width="128" height="128"/>
@@ -763,6 +814,7 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="paperplane" catalog="system" width="128" height="118"/>
+        <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
