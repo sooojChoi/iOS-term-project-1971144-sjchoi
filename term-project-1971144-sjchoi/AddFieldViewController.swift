@@ -31,6 +31,10 @@ class AddFieldViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tap)
         
+        fieldTitleTextField.layer.borderWidth = 1.0
+        fieldTitleTextField.layer.borderColor = CGColor.init(red: 0.70, green: 0.70, blue: 0.70, alpha: 1)
+        fieldTitleTextField.layer.cornerRadius = 10
+        
         fieldDesTextView.layer.borderWidth = 1.0
         fieldDesTextView.layer.borderColor = CGColor.init(red: 0.70, green: 0.70, blue: 0.70, alpha: 1)
         fieldDesTextView.layer.cornerRadius = 10
@@ -45,7 +49,6 @@ class AddFieldViewController: UIViewController {
 
 extension AddFieldViewController{
     @IBAction func addFieldAction(_ sender: UIBarButtonItem) {
-     //   postField!.userId = "홍길동"
         if(fieldTitleTextField.text == nil){
             return
         }

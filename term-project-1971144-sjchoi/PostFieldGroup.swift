@@ -51,6 +51,12 @@ extension PostFieldGroup{    // PlanGroup.swift
         database.queryPostFieldByName(name: name)
     }
     
+    func queryDataByUser(fieldArray:[String]){
+        postFields.removeAll()
+        
+        database.queryPostFieldByUser(fieldArray: fieldArray)
+    }
+    
     func saveChange(postField: PostField, action: DbAction){
         // 단순히 데이터베이스에 변경요청을 하고 plans에 대해서는
         // 데이터베이스가 변경알림을 호출하는 receivingNotification에서 적용한다

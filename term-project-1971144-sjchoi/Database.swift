@@ -33,6 +33,8 @@ protocol PostFieldDatabase{
     
     func queryPostFieldByName(name:String)
     
+    func queryPostFieldByUser(fieldArray: [String])
+    
     // 데이터베이스에 postField를 변경하고 parentNotification를 호출하여 부모에게 알림
     func saveFieldChange(postField: PostField, action:DbAction)
 }

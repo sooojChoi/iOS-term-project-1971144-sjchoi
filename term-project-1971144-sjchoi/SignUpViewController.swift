@@ -40,9 +40,13 @@ class SignUpViewController: UIViewController {
                         UserDefaults.standard.set(true, forKey: "logInStatus")
                         UserDefaults.standard.set(email, forKey: "email")
                         
-                        var user = User(email: email, name: name, password: passwd, fields: [], userParentNotification: self.receivingNotification)
+                        let user = User(email: email, name: name, password: passwd, fields: [])
                         
-                        user.saveChange(user: user, action: .Add)
+                        let userGroup = UserGroup(userParentNotification: self.receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
+                        userGroup.queryData()
+                        
+                        userGroup.saveChange(user: user, action: .Add)
+                        
                         
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let mainTabBarController = storyboard.instantiateViewController(identifier: "MainTabBarController")

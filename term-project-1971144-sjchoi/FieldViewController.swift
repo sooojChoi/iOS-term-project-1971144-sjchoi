@@ -22,6 +22,11 @@ class FieldViewController: UIViewController {
     @IBOutlet weak var fieldTableView: UITableView!
     var fieldGroup: PostFieldGroup!
     
+    var user: User?
+    var userGroup:UserGroup?
+    
+    var isFireTime = 0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +36,28 @@ class FieldViewController: UIViewController {
         
         fieldTableView.isEditing = false
         
-        // 단순히 planGroup객체만 생성한다
+        let storedEmail = UserDefaults.standard.string(forKey: "email")
+        userGroup = UserGroup(userParentNotification: userReceivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
+        userGroup?.queryDataByEmail(email: storedEmail ?? "")
+        user = userGroup?.getUser(email: storedEmail)
+        
+        
         fieldGroup = PostFieldGroup(postFieldParentNotification: receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
-        fieldGroup.queryData()       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
+        fieldGroup.queryDataByUser(fieldArray: user?.fields ?? [])
         TitleLabel.text = "즐겨찾기 게시판"
+        
     }
     
     func receivingNotification(postField: PostField?, action: DbAction?){
         // 데이터가 올때마다 이 함수가 호출되는데 맨 처음에는 기본적으로 add라는 액션으로 데이터가 온다.
         self.fieldTableView.reloadData()  // 속도를 증가시키기 위해 action에 따라 개별적 코딩도 가능하다.
+    }
+    
+    func userReceivingNotification(user: User?, action: DbAction?){
+        self.user = user
+        fieldGroup.queryDataByUser(fieldArray: user?.fields ?? [])
+        self.fieldTableView.reloadData()
+     
     }
 
 }
@@ -95,6 +113,10 @@ extension FieldViewController{
             fieldGroup.saveChange(postField: postField!, action: .Add)
         }
     }
+    
+}
+
+extension FieldViewController{
     
 }
 

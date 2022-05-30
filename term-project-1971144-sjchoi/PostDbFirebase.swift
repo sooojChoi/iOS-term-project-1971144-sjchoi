@@ -44,7 +44,7 @@ class PostDbFirebase: Database {
 
         // 저장 형태로 만든다
         let storeDate: [String : Any] = ["date": post.date, "data": data!]
-        reference.document().setData(storeDate)
+        reference.document(post.key).setData(storeDate)
         
        
     }

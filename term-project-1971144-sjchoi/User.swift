@@ -6,48 +6,28 @@
 //
 
 import Foundation
-import Firebase
+
 
 class User: NSObject, NSCoding{
-
+    var key: String;
     var email: String;
     var name: String?;
     var password: String;
     var fields: [String]?
    
-    var database: UserDatabase!
-    var userParentNotification: ((User?, DbAction?) -> Void)?
-
-    
-    init(email:String, name:String, password:String,fields:[String]?, userParentNotification: ((User?, DbAction?) -> Void)?){
+    init(email:String, name:String, password:String,fields:[String]?){
+        self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
         self.email = email
         self.name = name
         self.password = password
         self.fields = fields
         
-        super.init()
-        
-        self.userParentNotification = userParentNotification
-      //  database = PostFieldDbMemory(postFieldParentNotification: receivingNotification) // 데이터베이스 생성
-        database = UserFirebase(userParentNotification: receivingNotification)
-       
+        super.init() 
     }
-    func receivingNotification(user: User?, action: DbAction?){
-        // 데이터베이스로부터 메시지를 받고 이를 부모에게 전달한다
-        if let user = user{
-            switch(action){    // 액션에 따라 적절히     plans에 적용한다
-                case .Add: addUser(user: user)
-                case .Modify: modifyUser(modifiedUser: user)
-                case .Delete: removeUser(removeUser: user)
-                default: break
-            }
-        }
-        if let userParentNotification = userParentNotification{
-            userParentNotification(user, action) // 역시 부모에게 알림내용을 전달한다.
-        }
-    }
+    
     // archiving할때 호출된다
     func encode(with aCoder: NSCoder) {
+        aCoder.encode(key, forKey: "key")       // 내부적으로 String의 encode가 호출된다
         aCoder.encode(email, forKey: "email")
         aCoder.encode(name, forKey: "name")
         aCoder.encode(password, forKey: "password")
@@ -55,6 +35,7 @@ class User: NSObject, NSCoding{
     }
     // unarchiving할때 호출된다
     required init(coder aDecoder: NSCoder) {
+        key = aDecoder.decodeObject(forKey: "key") as! String? ?? "" // 내부적으로 String.init가 호출된다
         email = aDecoder.decodeObject(forKey: "email") as! String? ?? ""
         name = aDecoder.decodeObject(forKey: "name") as? String ?? ""
         password = aDecoder.decodeObject(forKey: "password") as! String
@@ -63,33 +44,6 @@ class User: NSObject, NSCoding{
         super.init()
     }
 
-}
-
-extension User{    // PlanGroup.swift
-    
-    func queryData(){
-        email = ""
-        name = ""
-        password = ""
-        fields = []
-        
-        database.queryUser()
-    }
-    
-    func queryDataByEmail(email: String){
-        self.email = ""
-        name = ""
-        password = ""
-        fields = []
-        
-        database.queryUserByEmail(email: email)
-    }
-    
-    func saveChange(user: User, action: DbAction){
-        // 단순히 데이터베이스에 변경요청을 하고 plans에 대해서는
-        // 데이터베이스가 변경알림을 호출하는 receivingNotification에서 적용한다
-        database.saveUserChange(user: user, action: action)
-    }
 }
 
 extension User{
@@ -108,10 +62,10 @@ extension User{
             index = Int(arc4random_uniform(UInt32(names.count)))
             let name = names[index]
             
-            self.init(email: email, name: name, password: password,      fields: ["자유 게시판"], userParentNotification:nil)
+            self.init(email: email, name: name, password: password,      fields: ["자유 게시판"])
             
         }else{
-            self.init(email: "", name: "", password: "",fields: [], userParentNotification:nil)
+            self.init(email: "", name: "", password: "",fields: [])
 
         }
     }
@@ -121,6 +75,7 @@ extension User{        // Plan.swift
     func clone() -> User {
         let clonee = User()
 
+        clonee.key = self.key
         clonee.email = self.email
         clonee.name = self.name
         clonee.password = self.password
@@ -128,20 +83,5 @@ extension User{        // Plan.swift
         
         return clonee
     }
-}
-
-extension User{
-    private func addUser(user:User){
-        
-    }
-    private func modifyUser(modifiedUser: User){
-        
-        
-    }
-    private func removeUser(removeUser: User){
-       
-        
-    }
-    
 }
 

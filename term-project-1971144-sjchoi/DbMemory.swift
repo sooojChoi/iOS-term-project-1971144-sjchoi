@@ -67,6 +67,10 @@ extension DbMemory{// DbMemory.swift
 
 
 class PostFieldDbMemory: PostFieldDatabase{
+    func queryPostFieldByUser(fieldArray: [String]) {
+        
+    }
+    
     private var fieldStorage: [PostField]
     // storgae내의 데이터변화가 있으면 이 함수를 호출해야 함
     var postFieldParentNotification: ((PostField?, DbAction?) -> Void)?

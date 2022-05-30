@@ -16,6 +16,7 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
 
 import UIKit
+import Firebase
 
 class MakeFieldViewController: UIViewController {
 
@@ -30,6 +31,8 @@ class MakeFieldViewController: UIViewController {
     
     var fieldGroup: PostFieldGroup!
     
+    var user:User?
+    var userGroup: UserGroup?
     
     
     override func viewDidLoad() {
@@ -48,6 +51,12 @@ class MakeFieldViewController: UIViewController {
         fieldGroup = PostFieldGroup(postFieldParentNotification: receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
         fieldGroup.queryData()       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
         
+        let storedEmail = UserDefaults.standard.string(forKey: "email")
+        userGroup = UserGroup(userParentNotification: receivingUserNotification) // 변경이 생기면 해당 함수를 호출하도록..
+        userGroup?.queryDataByEmail(email: storedEmail ?? "")
+        user = userGroup?.getUser(email: storedEmail)
+        print(storedEmail ?? "there is no email")
+        print(user?.name)
        
     }
     
@@ -55,6 +64,13 @@ class MakeFieldViewController: UIViewController {
         // 데이터가 올때마다 이 함수가 호출되는데 맨 처음에는 기본적으로 add라는 액션으로 데이터가 온다.
         self.fieldTableView.reloadData()  // 속도를 증가시키기 위해 action에 따라 개별적 코딩도 가능하다.
     }
+    
+    func receivingUserNotification(user: User?, action: DbAction?){
+        self.user = user
+        self.fieldTableView.reloadData()
+    }
+    
+    
     
 }
 
@@ -69,6 +85,7 @@ extension MakeFieldViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let modifyUser = user?.clone()
 
       //  let cell = UITableViewCell(style: .value1, reuseIdentifier: "") // TableViewCell을 생성한다
   
@@ -76,8 +93,22 @@ extension MakeFieldViewController: UITableViewDataSource {
         // planGroup는 대략 1개월의 플랜을 가지고 있다.
         let field = fieldGroup.getPostFields()[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
 
+        let btn = (cell?.contentView.subviews[0] as! UIButton)
         (cell?.contentView.subviews[1] as! UILabel).text = field.name
         (cell?.contentView.subviews[2] as! UILabel).text = field.des
+        
+        
+        let favoriteFields = modifyUser?.fields
+
+        if((favoriteFields?.contains(field.key)) == false){
+            print("is not contain")
+            let image = UIImage(systemName: "star")
+            btn.setImage(image, for: .normal)
+        }else{
+            print("is contain")
+            let image = UIImage(systemName: "star.fill")
+            btn.setImage(image, for: .normal)
+        }
 
         return cell!
     }
@@ -95,13 +126,53 @@ extension MakeFieldViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("selected cell \(indexPath.row)")
-//        let field = fieldGroup.getPostFields()[indexPath.row]
-//        let svc = self.storyboard?.instantiateViewController(withIdentifier: "PostGroupViewController") as! PostGroupViewController
-//        svc.appTitleString = field.name
-//
-//        navigationController?.pushViewController(svc, animated: true)
+        print("selected cell \(indexPath.row)")
+        let field = fieldGroup.getPostFields()[indexPath.row]
+        var modifyUer = user?.clone()
 
+        var favoriteFields = modifyUer?.fields
+
+        if((favoriteFields?.contains(field.key)) == false){
+//            let alert = UIAlertController(title: "게시판을 즐겨찾기에 추가하시겠습니까?", message: field.name, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "추가", style: .default) { [self] action in
+//                favoriteFields?.append(field.key)
+//                print(modifyUser?.fields)
+//
+//                modifyUser?.fields = favoriteFields
+//                print(modifyUser?.fields)
+//                userGroup?.saveChange(user: modifyUser!, action: .Modify)
+//
+//            })
+//            alert.addAction(UIAlertAction(title: "취소", style: .cancel){_ in })
+//            self.present(alert, animated: true, completion: nil)
+            print("즐겨찾기에 추가하시겠습니까?")
+            favoriteFields?.append(field.key)
+    //        print(modifyUser?.fields)
+
+            modifyUer?.fields = favoriteFields
+            userGroup?.saveChange(user: modifyUer!, action: .Modify)
+            
+        }else{
+            print("즐겨찾기에서 해제하시겠습니까?")
+            if let index = favoriteFields?.firstIndex(of: field.key){
+                favoriteFields?.remove(at: index)
+            }
+
+            modifyUer?.fields = favoriteFields
+            userGroup?.saveChange(user: modifyUer!, action: .Modify)
+//            let alert = UIAlertController(title: "게시판을 즐겨찾기에서 해제하시겠습니까?", message: field.name, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "해제", style: .default) { [self] action in
+//                if let index = favoriteFields?.firstIndex(of: field.key){
+//                    favoriteFields?.remove(at: index)
+//                }
+//
+//                modifyUser?.fields = favoriteFields
+//                userGroup?.saveChange(user: modifyUser!, action: .Modify)
+//            })
+//            alert.addAction(UIAlertAction(title: "취소", style: .cancel){_ in  })
+//            self.present(alert, animated: true, completion: nil)
+
+        }
     }
 
 }
@@ -136,3 +207,5 @@ extension MakeFieldViewController{
         }
     }
 }
+
+

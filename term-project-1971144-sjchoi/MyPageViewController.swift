@@ -21,6 +21,7 @@ class MyPageViewController: UIViewController {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var nameLabe: UILabel!
     
+    var userGroup:UserGroup?
     var user: User?
     
     @IBAction func LogOutAction(_ sender: UIButton) {
@@ -36,36 +37,48 @@ class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var storedEmail = UserDefaults.standard.string(forKey: "email")
+        let storedEmail = UserDefaults.standard.string(forKey: "email")
         self.emailLabel.text = storedEmail ?? ""
-        user = User(withData: false)
         
-        print(storedEmail)
+        userGroup = UserGroup(userParentNotification: self.receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
+        userGroup?.queryDataByEmail(email: storedEmail ?? "")
         
-        if let email = storedEmail{
-            if(email != ""){
-                let ref = Firestore.firestore().collection("users")
-                let queryReference = ref.whereField("email", isEqualTo: email)
-                let existQuery = queryReference.addSnapshotListener(){
-                    (snapshot, error) in
-                    
-                    if let e = error{
-                        print("query error: \(e)")
-                        return
-                    }
-                    
-                    for document in snapshot!.documents {
-                        
-                        //let key = documentChange.document.documentID
-                        let data = document.data()
-                        let userData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data["data"] as! Data) as? User
-                        
-                        self.nameLabe.text = userData?.name ?? ""
-                    }
-                }
-
-            }
-        }
+        user = userGroup?.getUser(email: storedEmail)
+        nameLabe.text = user?.name
+        
+        print(user?.name)
+        
+//        if let email = storedEmail{
+//            if(email != ""){
+//                let ref = Firestore.firestore().collection("users")
+//                let queryReference = ref.whereField("email", isEqualTo: email)
+//                let existQuery = queryReference.addSnapshotListener(){
+//                    (snapshot, error) in
+//
+//                    if let e = error{
+//                        print("query error: \(e)")
+//                        return
+//                    }
+//
+//
+//                    for document in snapshot!.documents {
+//
+//                        //let key = documentChange.document.documentID
+//                        let data = document.data()
+//                        let userData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data["data"] as! Data) as? User
+//
+//                        self.nameLabe.text = userData?.name ?? ""
+//                    }
+//                }
+//
+//            }
+//        }
+     
+    }
+    
+    
+    func receivingNotification(user: User?, action: DbAction?){
+        nameLabe.text = user?.name
      
     }
     
