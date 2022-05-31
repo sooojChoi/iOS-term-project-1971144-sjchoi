@@ -19,20 +19,22 @@ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 import UIKit
 import Firebase
 
+
 class AddPostViewController: UIViewController {
-    var appOwner = "홍길동"
+   // var appOwner = "홍길동"
 
     @IBOutlet weak var titleTextField: UITextField!
-    
+    @IBOutlet weak var contentsTextView: UITextView!
     
     var fieldName:String?
     var saveChangeDelegate: ((Post)->Void)?
+    var saveChangeDelegateFromDetail: ((Post, String)->Void)?
+    var fromWhere: String?
     
     var post:Post?
     var user:User?
     var userGroup: UserGroup?
     
-    @IBOutlet weak var contentsTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +56,11 @@ class AddPostViewController: UIViewController {
         
         user = userGroup?.getUser(email: storedEmail)
         
+        if(fromWhere == "DetailViewController"){
+            titleTextField.text = post?.title
+            contentsTextView.text = post?.content
+        }
+        
     }
     
     @objc func dismissKeyboard(sender: UITapGestureRecognizer){
@@ -63,45 +70,30 @@ class AddPostViewController: UIViewController {
     
 
     @IBAction func SaveAndBackButton(_ sender: UIBarButtonItem) {
-        post!.date = Date()
-        post!.kind = fieldName ?? "동물 게시판"
-        post!.content = contentsTextView.text ?? ""
-        post!.title = titleTextField.text ?? ""
-        post?.owner = user?.name
-        
-        post!.userId = user?.email ?? ""
-        
-        saveChangeDelegate?(post!)
-      //  dismiss(animated: true, completion: nil)
+        if fromWhere == "DetailViewController"{
+            print("게시글 수정됨")
+            print(post!.key)
+            post!.content = contentsTextView.text ?? ""
+            post!.title = titleTextField.text ?? ""
+            saveChangeDelegateFromDetail!(post!, "Modify")
+            
+           
+//            let controller = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 3]
+//            navigationController?.popToViewController(controller!, animated: true)
+        }else if fromWhere == "PostGroupViewController"{
+            print("게시글 추가됨")
+            post!.date = Date()
+            post!.kind = fieldName ?? "동물 게시판"
+            post!.content = contentsTextView.text ?? ""
+            post!.title = titleTextField.text ?? ""
+            post?.owner = user?.name
+            
+            post!.userId = user?.email ?? ""
+            saveChangeDelegate?(post!)
+            
+        }
         navigationController?.popViewController(animated: true)
-    
-        
-//        let ref = Firestore.firestore().collection("users")
-//        let queryReference = ref.whereField("email", isEqualTo: storedEmail ?? "")
-//        let _ = queryReference.addSnapshotListener(){ [self]
-//            (snapshot, error) in
-//
-//            if let e = error{
-//                print("query error: \(e)")
-//                return
-//            }
-//
-//            for document in snapshot!.documents {
-//
-//                //let key = documentChange.document.documentID
-//                let data = document.data()
-//                let userData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data["data"] as! Data) as? User
-//
-//                self.post!.owner = userData?.name ?? "익명"
-//            }
-//
-//
-//
-//            saveChangeDelegate?(post!)
-//          //  dismiss(animated: true, completion: nil)
-//            navigationController?.popViewController(animated: true)
-//
-//        }
+     
             
     }
     

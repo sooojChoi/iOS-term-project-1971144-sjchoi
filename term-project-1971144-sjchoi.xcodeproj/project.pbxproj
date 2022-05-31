@@ -27,6 +27,8 @@
 		F57B3580283D426300FDBE48 /* AddFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57B357F283D426300FDBE48 /* AddFieldViewController.swift */; };
 		F57B3582283D49B900FDBE48 /* PostFieldFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57B3581283D49B900FDBE48 /* PostFieldFirebase.swift */; };
 		F588303F283BFF2B00AC92A0 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F588303E283BFF2B00AC92A0 /* Comment.swift */; };
+		F5B598E32846974A0004399C /* CommentGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B598E22846974A0004399C /* CommentGroup.swift */; };
+		F5B598E5284699770004399C /* CommentDbFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B598E4284699770004399C /* CommentDbFirebase.swift */; };
 		F5C605502832130700A87286 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C6054F2832130700A87286 /* AppDelegate.swift */; };
 		F5C605522832130700A87286 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605512832130700A87286 /* SceneDelegate.swift */; };
 		F5C605542832130700A87286 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C605532832130700A87286 /* ViewController.swift */; };
@@ -88,6 +90,8 @@
 		F57B357F283D426300FDBE48 /* AddFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFieldViewController.swift; sourceTree = "<group>"; };
 		F57B3581283D49B900FDBE48 /* PostFieldFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFieldFirebase.swift; sourceTree = "<group>"; };
 		F588303E283BFF2B00AC92A0 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		F5B598E22846974A0004399C /* CommentGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGroup.swift; sourceTree = "<group>"; };
+		F5B598E4284699770004399C /* CommentDbFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDbFirebase.swift; sourceTree = "<group>"; };
 		F5C6054C2832130700A87286 /* term-project-1971144-sjchoi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "term-project-1971144-sjchoi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5C6054F2832130700A87286 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5C605512832130700A87286 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -205,7 +209,6 @@
 				F5320D122834B497009624EA /* PostField.swift */,
 				F5320D142834B8C3009624EA /* PostFieldGroup.swift */,
 				F54EC1AB283BACBB003EF40E /* GoogleService-Info.plist */,
-				F588303E283BFF2B00AC92A0 /* Comment.swift */,
 				F57B3579283D0B5D00FDBE48 /* PostDbFirebase.swift */,
 				F57B357B283D12C400FDBE48 /* AddPostViewController.swift */,
 				F57B357D283D378800FDBE48 /* MakeFieldViewController.swift */,
@@ -218,6 +221,9 @@
 				F5599B00283E0E5D00DC7B0A /* MyPageViewController.swift */,
 				F5599B02283E130700DC7B0A /* UserDbFirebase.swift */,
 				F548C153284522D900BDE54A /* UserGroup.swift */,
+				F588303E283BFF2B00AC92A0 /* Comment.swift */,
+				F5B598E22846974A0004399C /* CommentGroup.swift */,
+				F5B598E4284699770004399C /* CommentDbFirebase.swift */,
 			);
 			path = "term-project-1971144-sjchoi";
 			sourceTree = "<group>";
@@ -483,9 +489,11 @@
 				F5599AFF283E05DE00DC7B0A /* SignUpViewController.swift in Sources */,
 				F5C605842832155800A87286 /* Database.swift in Sources */,
 				F5C605542832130700A87286 /* ViewController.swift in Sources */,
+				F5B598E32846974A0004399C /* CommentGroup.swift in Sources */,
 				F57B357A283D0B5D00FDBE48 /* PostDbFirebase.swift in Sources */,
 				F57B3582283D49B900FDBE48 /* PostFieldFirebase.swift in Sources */,
 				F5C605502832130700A87286 /* AppDelegate.swift in Sources */,
+				F5B598E5284699770004399C /* CommentDbFirebase.swift in Sources */,
 				F57B357C283D12C400FDBE48 /* AddPostViewController.swift in Sources */,
 				F57B3580283D426300FDBE48 /* AddFieldViewController.swift in Sources */,
 				F588303F283BFF2B00AC92A0 /* Comment.swift in Sources */,

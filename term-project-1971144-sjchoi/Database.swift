@@ -51,3 +51,16 @@ protocol UserDatabase{
     // 데이터베이스에 postField를 변경하고 parentNotification를 호출하여 부모에게 알림
     func saveUserChange(user: User, action:DbAction)
 }
+
+
+protocol CommentDatabase{
+    init(commentParentNotification: ((Comment?, DbAction?) -> Void)? )
+    
+    // PostField를 읽어 parentNotification를 호출하여 부모에게 알림
+    func queryComment()
+    
+    func queryCommentByPostId(id:String)
+    
+    // 데이터베이스에 postField를 변경하고 parentNotification를 호출하여 부모에게 알림
+    func saveCommentChange(comment: Comment, action:DbAction)
+}

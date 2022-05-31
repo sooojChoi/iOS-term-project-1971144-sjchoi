@@ -22,13 +22,14 @@ class Post: NSObject, NSCoding{
     var key: String;        var date: Date
     var owner: String?;  // 게시글 작성자
     var title: String;     // var kind: Kind
-    var content: String;    var likes: Int
-       var kind: String;
-    var numOfComments:Int;
+    var content: String;
+    var kind: String;
+    var likes: String
+    var numOfComments:String;
     var userId:String;
    
     
-    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:Int, numOfComments: Int, userId: String){
+    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:String, numOfComments: String, userId: String){
         self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
         self.date = Date(timeInterval: 0, since: date)
         self.owner = owner;
@@ -61,11 +62,14 @@ class Post: NSObject, NSCoding{
         date = aDecoder.decodeObject(forKey: "date") as! Date
         owner = aDecoder.decodeObject(forKey: "owner") as? String
         kind = aDecoder.decodeObject(forKey: "kind") as? String ?? ""
+        content = aDecoder.decodeObject(forKey: "content") as? String ?? ""
+        
         title = aDecoder.decodeObject(forKey: "title") as? String ?? ""
-        content = aDecoder.decodeObject(forKey: "content") as! String? ?? ""
-        likes = aDecoder.decodeObject(forKey: "likes") as? Int ?? 0
-        numOfComments = aDecoder.decodeObject(forKey: "numOfComments") as? Int ?? 0
         userId = aDecoder.decodeObject(forKey: "userId") as? String ?? ""
+        likes = aDecoder.decodeObject(forKey: "likes") as? String ?? ""
+        numOfComments = aDecoder.decodeObject(forKey: "numOfComments") as? String ?? ""
+        
+        
         
         super.init()
     }
@@ -94,10 +98,10 @@ extension Post{
             index = Int(arc4random_uniform(UInt32(owners.count)))
             let owner = owners[index]
             
-            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: likes,  numOfComments: 0, userId:"")
+            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: "0",  numOfComments: "0", userId:"")
             
         }else{
-            self.init(date: Date(), owner: "", title: "", content: "", kind: "",likes: 0, numOfComments: 0, userId: "")
+            self.init(date: Date(), owner: "", title: "", content: "", kind: "",likes: "0", numOfComments: "0", userId: "")
 
         }
     }

@@ -28,8 +28,9 @@ class PostGroupViewController: UIViewController {
     @IBAction func addPost(_ sender: UIBarButtonItem) {
         let svc = self.storyboard?.instantiateViewController(withIdentifier: "AddPostViewController") as! AddPostViewController
         
-        svc.saveChangeDelegate = saveChange
+        svc.saveChangeDelegate = saveAddChange
         svc.fieldName = appTitleString
+        svc.fromWhere = "PostGroupViewController"
         svc.post = Post(withData: false)
         
         navigationController?.pushViewController(svc, animated: true)
@@ -46,10 +47,9 @@ class PostGroupViewController: UIViewController {
 //        postGroupTableView.estimatedRowHeight = UITableView.automaticDimension
 //
         postGroupTableView.isEditing = false
-        
-        // 단순히 planGroup객체만 생성한다
+  
         postGroup = PostGroup(parentNotification: receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
-        postGroup.queryData()       // 이달의 데이터를 가져온다. 데이터가 오면 planGroupListener가 호출된다.
+        postGroup.queryData()
         
         fieldTitle.title = appTitleString
     }
@@ -88,49 +88,22 @@ extension PostGroupViewController: UITableViewDataSource {
   
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell")
         // planGroup는 대략 1개월의 플랜을 가지고 있다.
-        let post = postGroup.getPosts(fieldTitle: appTitleString)[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
+        let post = postGroup.getPosts(fieldTitle: appTitleString)[indexPath.row]
 
 //        // 적절히 cell에 데이터를 채움
-//        cell?.textLabel!.text = plan.date.toStringDateTime()
-//        cell?.detailTextLabel?.text = plan.content
         (cell?.contentView.subviews[0] as! UILabel).text = post.title
         (cell?.contentView.subviews[1] as! UILabel).text = post.content
         (cell?.contentView.subviews[2] as! UILabel).text = post.date.toStringDateTime()
         (cell?.contentView.subviews[4] as! UILabel).text = String(post.likes)
         (cell?.contentView.subviews[5] as! UILabel).text = String(post.numOfComments)
         
- 
-        
-//        cell?.accessoryType = .none
-//        cell?.accessoryView = nil
-//        if indexPath.row % 2 == 0 {
-//            cell?.accessoryType = .detailDisclosureButton
-//        }else{
-//            cell?.accessoryView = UISwitch(frame: CGRect())
-//        }
         
         return cell!
     }
 }
 extension PostGroupViewController: UITableViewDelegate{
     
-//    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-//
-//        // 이것은 데이터베이스에 까지 영향을 미치지 않는다. 그래서 planGroup에서만 위치 변경
-//        let from = postGroup.getPosts()[sourceIndexPath.row]
-//        let to = postGroup.getPosts()[destinationIndexPath.row]
-//        postGroup.changePost(from: from, to: to)
-//        tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
-//    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // 이미지가 있는 게시물이면 table cell의 height가 200, 아니면 100
-     //   let post = postGroup.getPosts(fieldTitle: appTitleString)[indexPath.row]
-//        if post.image != "" {
-//            return 110
-//        }else{
-//            return 120
-//        }
         return 110
     }
     
@@ -146,12 +119,16 @@ extension PostGroupViewController: UITableViewDelegate{
 
 }
 extension PostGroupViewController{
-    func saveChange(post: Post?){
-        if postGroupTableView.indexPathForSelectedRow != nil {
+    func saveChange(post: Post?, action:String){
+        if action == "Modify" {
             postGroup.saveChange(post: post!, action: .Modify)
-        }else{
-            postGroup.saveChange(post: post!, action: .Add)
+        }else if action == "Delete"{
+            postGroup.saveChange(post: post!, action: .Delete)
         }
+    }
+    
+    func saveAddChange(post:Post?){
+        postGroup.saveChange(post: post!, action: .Add)
     }
     
 }
