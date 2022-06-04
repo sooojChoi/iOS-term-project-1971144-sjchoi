@@ -69,16 +69,13 @@ extension FieldViewController: UITableViewDataSource {
         if let fieldGroup = fieldGroup{
             return fieldGroup.getPostFields().count
         }
-        return 0    // planGroup가 생성되기전에 호출될 수도 있다
+        return 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-      //  let cell = UITableViewCell(style: .value1, reuseIdentifier: "") // TableViewCell을 생성한다
-  
         let cell = tableView.dequeueReusableCell(withIdentifier: "FieldTableViewCell")
-        // planGroup는 대략 1개월의 플랜을 가지고 있다.
-        let field = fieldGroup.getPostFields()[indexPath.row] // Date를 주지않으면 전체 plan을 가지고 온다
+
+        let field = fieldGroup.getPostFields()[indexPath.row]
 
         (cell?.contentView.subviews[0] as! UILabel).text = field.name
         (cell?.contentView.subviews[1] as! UILabel).text = field.des
@@ -89,7 +86,6 @@ extension FieldViewController: UITableViewDataSource {
 extension FieldViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // 이미지가 있는 게시물이면 table cell의 height가 200, 아니면 100
         return 90
     }
     

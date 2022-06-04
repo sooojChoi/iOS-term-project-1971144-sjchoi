@@ -8,14 +8,14 @@
 import Foundation
 
 class CommentGroup: NSObject{
-    var comments = [Comment]()            // var plans: [Plan] = []와 동일, 퀴리를 만족하는 plan들만 저장한다.
+    var comments = [Comment]()
     var database: CommentDatabase!
     var commentParentNotification: ((Comment?, DbAction?) -> Void)?
     
     init(commentParentNotification: ((Comment?, DbAction?) -> Void)? ){
         super.init()
         self.commentParentNotification = commentParentNotification
-       // database = PostDbFirebase(commentParentNotification: receivingNotification)
+        database = CommentFirebase(commentParentNotification: receivingNotification)
     }
     func receivingNotification(comment: Comment?, action: DbAction?){
         // 데이터베이스로부터 메시지를 받고 이를 부모에게 전달한다
@@ -71,9 +71,9 @@ extension CommentGroup{     // PlanGroup.swift
         return comments
     }
 }
-extension CommentGroup{     // PlanGroup.swift
+extension CommentGroup{
     
-    private func count() -> Int{ return comments.count }
+    func count() -> Int{ return comments.count }
     
    
     

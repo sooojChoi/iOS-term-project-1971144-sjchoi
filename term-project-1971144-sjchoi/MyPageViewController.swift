@@ -23,6 +23,7 @@ class MyPageViewController: UIViewController {
     
     var userGroup:UserGroup?
     var user: User?
+    var storedEmail: String?
     
     @IBAction func LogOutAction(_ sender: UIButton) {
         UserDefaults.standard.set(false, forKey: "logInStatus")
@@ -37,7 +38,7 @@ class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let storedEmail = UserDefaults.standard.string(forKey: "email")
+        storedEmail = UserDefaults.standard.string(forKey: "email")
         self.emailLabel.text = storedEmail ?? ""
         
         userGroup = UserGroup(userParentNotification: self.receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
@@ -78,9 +79,9 @@ class MyPageViewController: UIViewController {
     
     
     func receivingNotification(user: User?, action: DbAction?){
-        nameLabe.text = user?.name
-     
+        if(user?.email == storedEmail){
+            nameLabe.text = user?.name
+        }
     }
     
-
 }

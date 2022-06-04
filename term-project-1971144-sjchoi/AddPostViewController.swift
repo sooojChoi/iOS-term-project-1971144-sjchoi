@@ -34,6 +34,7 @@ class AddPostViewController: UIViewController {
     var post:Post?
     var user:User?
     var userGroup: UserGroup?
+    var storedEmail: String?
     
     
     override func viewDidLoad() {
@@ -50,7 +51,7 @@ class AddPostViewController: UIViewController {
         contentsTextView.layer.borderColor = CGColor.init(red: 0.70, green: 0.70, blue: 0.70, alpha: 1)
         contentsTextView.layer.cornerRadius = 10
         
-        let storedEmail = UserDefaults.standard.string(forKey: "email")
+        storedEmail = UserDefaults.standard.string(forKey: "email")
         userGroup = UserGroup(userParentNotification: self.receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
         userGroup?.queryDataByEmail(email: storedEmail ?? "")
         
@@ -77,9 +78,6 @@ class AddPostViewController: UIViewController {
             post!.title = titleTextField.text ?? ""
             saveChangeDelegateFromDetail!(post!, "Modify")
             
-           
-//            let controller = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 3]
-//            navigationController?.popToViewController(controller!, animated: true)
         }else if fromWhere == "PostGroupViewController"{
             print("게시글 추가됨")
             post!.date = Date()
@@ -98,7 +96,9 @@ class AddPostViewController: UIViewController {
     }
     
     func receivingNotification(user: User?, action: DbAction?){
-        self.user = user
+        if(user?.email == storedEmail){
+            self.user = user
+        }
     }
     
     

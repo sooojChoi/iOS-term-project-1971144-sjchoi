@@ -15,16 +15,18 @@ class Comment: NSObject, NSCoding {
     var userName: String;
     var postId: String;
     var contents: String;
+    var likes: String;
     
    
     
-    init(date: Date, userId: String,userName:String, postId:String, contents: String){
+    init(date: Date, userId: String,userName:String, postId:String, contents: String, likes: String){
         self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
         self.date = Date(timeInterval: 0, since: date)
         self.userId = userId
         self.postId = postId
         self.contents = contents
         self.userName = userName
+        self.likes = likes
         
         super.init()
     }
@@ -34,9 +36,10 @@ class Comment: NSObject, NSCoding {
         aCoder.encode(key, forKey: "key")       // 내부적으로 String의 encode가 호출된다
         aCoder.encode(date, forKey: "date")
         aCoder.encode(userId, forKey: "userId")
-        aCoder.encode(postId, forKey: "kind")
+        aCoder.encode(postId, forKey: "postId")
         aCoder.encode(contents, forKey: "contents")
         aCoder.encode(userName, forKey: "userName")
+        aCoder.encode(likes, forKey: "likes")
     }
     // unarchiving할때 호출된다
     required init(coder aDecoder: NSCoder) {
@@ -46,7 +49,8 @@ class Comment: NSObject, NSCoding {
         postId = aDecoder.decodeObject(forKey: "postId") as? String ?? ""
         contents = aDecoder.decodeObject(forKey: "contents") as? String ?? ""
         userName = aDecoder.decodeObject(forKey: "userName") as? String ?? ""
- 
+        likes = aDecoder.decodeObject(forKey: "likes") as? String ?? ""
+        
         super.init()
     }
 }
@@ -68,10 +72,10 @@ extension Comment{
             index = Int(arc4random_uniform(UInt32(postIds.count)))
             let postId = postIds[index]
             
-            self.init(date: Date(), userId: userId, userName: "김철수",postId:postId, contents:content)
+            self.init(date: Date(), userId: userId, userName: "김철수",postId:postId, contents:content, likes: "0")
             
         }else{
-            self.init(date: Date(), userId: "", userName:"",postId:"", contents:"")
+            self.init(date: Date(), userId: "", userName:"",postId:"", contents:"", likes:"")
 
         }
     }
@@ -87,6 +91,7 @@ extension Comment{
         clonee.postId = self.postId
         clonee.contents = self.contents
         clonee.userName = self.userName
+        clonee.likes = self.likes
         
         return clonee
     }

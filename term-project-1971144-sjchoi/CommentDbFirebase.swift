@@ -19,7 +19,7 @@ class CommentFirebase: CommentDatabase {
 
     required init(commentParentNotification: ((Comment?, DbAction?) -> Void)?) {
         self.commentParentNotification = commentParentNotification
-                reference = Firestore.firestore().collection("comments") // 첫번째 "posts"라는 Collection
+                reference = Firestore.firestore().collection("comments")
 
     }
     
@@ -27,8 +27,8 @@ class CommentFirebase: CommentDatabase {
         if let existQuery = existQuery{    // 이미 적용 쿼리가 있으면 제거, 중복 방지
             existQuery.remove()
         }
-        
-        existQuery = reference.addSnapshotListener(onChangingData)
+        let queryReference = reference.order(by: "date", descending: false)
+        existQuery = queryReference.addSnapshotListener(onChangingData)
     }
     
     func queryCommentByPostId(id: String) {
@@ -37,9 +37,9 @@ class CommentFirebase: CommentDatabase {
         }
 
         findPostId = id
-        // onChangingData는 쿼리를 만족하는 데이터가 있거나 firestore내에서 다른 앱에 의하여
-        // 데이터가 변경되어 쿼리를 만족하는 데이터가 발생하면 호출해 달라는 것이다.
-        existQuery = reference.addSnapshotListener(onChangingDataByPostId)
+        let queryReference = reference.order(by: "date", descending: false)
+
+        existQuery = queryReference.addSnapshotListener(onChangingDataByPostId)
     }
     
     
@@ -52,7 +52,7 @@ class CommentFirebase: CommentDatabase {
         let data = try? NSKeyedArchiver.archivedData(withRootObject: comment, requiringSecureCoding: false)
 
         // 저장 형태로 만든다
-        let storeDate: [String : Any] = ["date":comment.date ?? "", "data": data!]
+        let storeDate: [String : Any] = ["date":comment.date , "data": data!]
         reference.document(comment.key).setData(storeDate)
     }
     
@@ -92,6 +92,7 @@ extension CommentFirebase{
             // [“data”: data]에서 data는 아카이빙되어 있으므로 언아카이빙이 필요
             let comment = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data["data"] as! Data) as? Comment
             if(comment?.postId == findPostId){
+                print("댓글 있다.")
                 var action: DbAction?
                 switch(documentChange.type){    // 단순히 DbAction으로 설정
                     case    .added: action = .Add
