@@ -71,7 +71,7 @@ extension User{
     }
 }
 
-extension User{        // Plan.swift
+extension User{    
     func clone() -> User {
         let clonee = User()
 

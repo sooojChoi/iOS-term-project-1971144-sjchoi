@@ -25,6 +25,22 @@ class MyPageViewController: UIViewController {
     var user: User?
     var storedEmail: String?
     
+    var tableViewData:[String]?
+    @IBOutlet weak var myTableView: UITableView!
+   
+    // 내 정보 수정하기 버튼 눌림
+    @IBAction func modifyMyInfoAction(_ sender: UIButton) {
+        let svc = self.storyboard?.instantiateViewController(withIdentifier: "ModifyMyInfoViewController") as! ModifyMyInfoViewController
+   
+        svc.title = "내 정보 수정"
+        svc.user = user?.clone()
+        svc.saveChangeDelegate = saveMyInfoChange
+        
+        navigationController?.pushViewController(svc, animated: true)
+        
+    }
+    
+    // 로그아웃 버튼 눌림
     @IBAction func LogOutAction(_ sender: UIButton) {
         UserDefaults.standard.set(false, forKey: "logInStatus")
         
@@ -47,41 +63,44 @@ class MyPageViewController: UIViewController {
         user = userGroup?.getUser(email: storedEmail)
         nameLabe.text = user?.name
         
-        print(user?.name)
+        myTableView.dataSource = self
+        myTableView.delegate = self
         
-//        if let email = storedEmail{
-//            if(email != ""){
-//                let ref = Firestore.firestore().collection("users")
-//                let queryReference = ref.whereField("email", isEqualTo: email)
-//                let existQuery = queryReference.addSnapshotListener(){
-//                    (snapshot, error) in
-//
-//                    if let e = error{
-//                        print("query error: \(e)")
-//                        return
-//                    }
-//
-//
-//                    for document in snapshot!.documents {
-//
-//                        //let key = documentChange.document.documentID
-//                        let data = document.data()
-//                        let userData = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data["data"] as! Data) as? User
-//
-//                        self.nameLabe.text = userData?.name ?? ""
-//                    }
-//                }
-//
-//            }
-//        }
+        tableViewData = ["내가 작성한 게시글"]
      
     }
     
-    
     func receivingNotification(user: User?, action: DbAction?){
         if(user?.email == storedEmail){
+            self.user = user
             nameLabe.text = user?.name
         }
     }
     
+}
+
+extension MyPageViewController:UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableViewData?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyTableViewCell")
+        
+        let cellData = tableViewData?[indexPath.row]
+        (cell?.contentView.subviews[0] as! UILabel).text = cellData
+        
+        return cell!
+    }
+    
+    
+}
+extension MyPageViewController:UITableViewDelegate{
+    
+}
+
+extension MyPageViewController{
+    func saveMyInfoChange(user: User?, action:String){
+        userGroup?.saveChange(user: user!, action: .Modify)
+    }
 }

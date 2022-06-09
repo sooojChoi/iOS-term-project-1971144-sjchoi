@@ -10,6 +10,7 @@
 		1134FF66754E0FCFE21D7FA0 /* Pods_term_project_1971144_sjchoiTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F1043CE61FE7DDF82957C3 /* Pods_term_project_1971144_sjchoiTests.framework */; };
 		277CA00610574D718B43E357 /* Pods_term_project_1971144_sjchoi_term_project_1971144_sjchoiUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8D6888B36A3C179CF47CAEB /* Pods_term_project_1971144_sjchoi_term_project_1971144_sjchoiUITests.framework */; };
 		7409F8C41F07959B99DC36F9 /* Pods_term_project_1971144_sjchoi.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E090CF0DE5AF2FD71BAAD1C8 /* Pods_term_project_1971144_sjchoi.framework */; };
+		F50C163B2851C5FF002F44B4 /* ModifyMyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50C163A2851C5FF002F44B4 /* ModifyMyInfoViewController.swift */; };
 		F5320D112834B361009624EA /* FieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5320D102834B361009624EA /* FieldViewController.swift */; };
 		F5320D132834B497009624EA /* PostField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5320D122834B497009624EA /* PostField.swift */; };
 		F5320D152834B8C3009624EA /* PostFieldGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5320D142834B8C3009624EA /* PostFieldGroup.swift */; };
@@ -73,6 +74,7 @@
 		8D614B0B05BDAA9859C5E883 /* Pods-term-project-1971144-sjchoi-term-project-1971144-sjchoiUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-term-project-1971144-sjchoi-term-project-1971144-sjchoiUITests.debug.xcconfig"; path = "Target Support Files/Pods-term-project-1971144-sjchoi-term-project-1971144-sjchoiUITests/Pods-term-project-1971144-sjchoi-term-project-1971144-sjchoiUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7F1043CE61FE7DDF82957C3 /* Pods_term_project_1971144_sjchoiTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_term_project_1971144_sjchoiTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E090CF0DE5AF2FD71BAAD1C8 /* Pods_term_project_1971144_sjchoi.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_term_project_1971144_sjchoi.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F50C163A2851C5FF002F44B4 /* ModifyMyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyMyInfoViewController.swift; sourceTree = "<group>"; };
 		F5320D102834B361009624EA /* FieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldViewController.swift; sourceTree = "<group>"; };
 		F5320D122834B497009624EA /* PostField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostField.swift; sourceTree = "<group>"; };
 		F5320D142834B8C3009624EA /* PostFieldGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFieldGroup.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				F588303E283BFF2B00AC92A0 /* Comment.swift */,
 				F5B598E22846974A0004399C /* CommentGroup.swift */,
 				F5B598E4284699770004399C /* CommentDbFirebase.swift */,
+				F50C163A2851C5FF002F44B4 /* ModifyMyInfoViewController.swift */,
 			);
 			path = "term-project-1971144-sjchoi";
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				F5C60588283216ED00A87286 /* ExtendedDate.swift in Sources */,
 				F5C605522832130700A87286 /* SceneDelegate.swift in Sources */,
 				F5599B01283E0E5D00DC7B0A /* MyPageViewController.swift in Sources */,
+				F50C163B2851C5FF002F44B4 /* ModifyMyInfoViewController.swift in Sources */,
 				F5599AFB283DE89500DC7B0A /* AuthenticationViewController.swift in Sources */,
 				F5C605822832153B00A87286 /* PostGroup.swift in Sources */,
 				F5320D152834B8C3009624EA /* PostFieldGroup.swift in Sources */,
