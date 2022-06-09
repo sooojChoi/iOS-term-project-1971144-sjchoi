@@ -35,6 +35,7 @@ class PostDetailViewController: UIViewController {
     
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     var originalTableViewHeight:CGFloat?
+    var plusTableViewHeight:CGFloat? = 0
     
     @IBOutlet weak var scrollView: UIScrollView!
     var currentScrollViewOffset: CGPoint?
@@ -232,23 +233,9 @@ extension PostDetailViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell")
         
-        if(indexPath.row == 0){
-            self.tableViewHeight.constant = originalTableViewHeight ?? 0
-        }
-        
-        // 댓글 수에 따라 tableView의 높이를 바꾼다.
-        DispatchQueue.main.async {
-//            self.tableViewHeight.constant = self.commentsTableView.contentSize.height
-            self.tableViewHeight.constant += cell?.contentView.frame.height ?? 0
-        }
-
-        if(indexPath.row + 1 == commentGroup?.count()){
-            self.tableViewHeight.constant -= originalTableViewHeight ?? 0
-        }
-        
-        
         let comment = commentGroup!.getComments(postId: post!.key)[indexPath.row]
 
+        print("comment contents: \(comment.contents)")
         (cell?.contentView.subviews[1] as! UILabel).text = comment.userName
         (cell?.contentView.subviews[2] as! UILabel).text = comment.contents
         (cell?.contentView.subviews[3] as! UILabel).text = comment.date.toStringDateTime()
@@ -296,6 +283,60 @@ extension PostDetailViewController: UITableViewDelegate{
 //        let likeButton = cell?.contentView.subviews[6] as! UIButton
 //    }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        // tableview 전체의 높이를 조절한다.
+        
+        if(indexPath.row == 0){
+            plusTableViewHeight = originalTableViewHeight ?? 0
+        }
+        
+        // 댓글 수에 따라 tableView의 높이를 바꾼다.
+//        DispatchQueue.main.async {
+          //    self.tableViewHeight.constant = self.commentsTableView.contentSize.height
+//            self.tableViewHeight.constant += cell?.contentView.frame.height ?? 0
+//        }
+//        self.tableViewHeight.constant += cell?.contentView.frame.height ?? 0
+        plusTableViewHeight! += cell.contentView.frame.height
+        self.tableViewHeight.constant = plusTableViewHeight!
+        print("cellHeight: \(cell.contentView.frame.height )")
+//
+        if(indexPath.row + 1 == commentGroup!.getComments(postId: post!.key).count){
+            //self.tableViewHeight.constant -= originalTableViewHeight ?? 0
+            plusTableViewHeight! -= originalTableViewHeight ?? 0
+            self.tableViewHeight.constant = plusTableViewHeight!
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        let comment = commentGroup!.getComments(postId: post!.key)[indexPath.row].clone()
+
+        // 내 댓글만 삭제할 수 있다.
+        if(comment.userId == user?.email){
+            return .delete
+        }else{
+            return .none
+        }
+    }
+    
+    //스와이프해서 삭제하기
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        let comment = commentGroup!.getComments(postId: post!.key)[indexPath.row].clone()
+
+        if editingStyle == .delete {
+            commentGroup?.saveChange(comment: comment, action: .Delete)
+            
+            let numOfComments = Int(post!.numOfComments)
+            let result = numOfComments! - 1
+            post!.numOfComments = String(result)
+            print(result)
+            saveChangeDelegate!(post!, "Modify")
+        }
+    }
+    
+    //테이블 삭제 코멘트 Delete에서 삭제로 바꾸기
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "삭제"
+    }
 }
 
 extension PostDetailViewController{
