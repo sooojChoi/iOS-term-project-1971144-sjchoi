@@ -87,7 +87,6 @@ extension PostGroupViewController: UITableViewDataSource {
       //  let cell = UITableViewCell(style: .value1, reuseIdentifier: "") // TableViewCell을 생성한다
   
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell")
-        // planGroup는 대략 1개월의 플랜을 가지고 있다.
         let post = postGroup.getPosts(fieldTitle: appTitleString)[indexPath.row]
 
 //        // 적절히 cell에 데이터를 채움
@@ -122,7 +121,8 @@ extension PostGroupViewController{
     func saveChange(post: Post?, action:String){
         if action == "Modify" {
             postGroup.saveChange(post: post!, action: .Modify)
-        }else if action == "Delete"{
+        }
+        else if action == "Delete"{
             postGroup.saveChange(post: post!, action: .Delete)
         }
     }

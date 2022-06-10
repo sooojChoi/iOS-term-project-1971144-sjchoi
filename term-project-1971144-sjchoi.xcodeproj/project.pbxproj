@@ -28,6 +28,7 @@
 		F57B3580283D426300FDBE48 /* AddFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57B357F283D426300FDBE48 /* AddFieldViewController.swift */; };
 		F57B3582283D49B900FDBE48 /* PostFieldFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57B3581283D49B900FDBE48 /* PostFieldFirebase.swift */; };
 		F588303F283BFF2B00AC92A0 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F588303E283BFF2B00AC92A0 /* Comment.swift */; };
+		F5AC76752853830300203079 /* MyPostGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5AC76742853830300203079 /* MyPostGroupViewController.swift */; };
 		F5B598E32846974A0004399C /* CommentGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B598E22846974A0004399C /* CommentGroup.swift */; };
 		F5B598E5284699770004399C /* CommentDbFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B598E4284699770004399C /* CommentDbFirebase.swift */; };
 		F5C605502832130700A87286 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C6054F2832130700A87286 /* AppDelegate.swift */; };
@@ -92,6 +93,7 @@
 		F57B357F283D426300FDBE48 /* AddFieldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFieldViewController.swift; sourceTree = "<group>"; };
 		F57B3581283D49B900FDBE48 /* PostFieldFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostFieldFirebase.swift; sourceTree = "<group>"; };
 		F588303E283BFF2B00AC92A0 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		F5AC76742853830300203079 /* MyPostGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostGroupViewController.swift; sourceTree = "<group>"; };
 		F5B598E22846974A0004399C /* CommentGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentGroup.swift; sourceTree = "<group>"; };
 		F5B598E4284699770004399C /* CommentDbFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentDbFirebase.swift; sourceTree = "<group>"; };
 		F5C6054C2832130700A87286 /* term-project-1971144-sjchoi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "term-project-1971144-sjchoi.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -227,6 +229,7 @@
 				F5B598E22846974A0004399C /* CommentGroup.swift */,
 				F5B598E4284699770004399C /* CommentDbFirebase.swift */,
 				F50C163A2851C5FF002F44B4 /* ModifyMyInfoViewController.swift */,
+				F5AC76742853830300203079 /* MyPostGroupViewController.swift */,
 			);
 			path = "term-project-1971144-sjchoi";
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5599AFF283E05DE00DC7B0A /* SignUpViewController.swift in Sources */,
+				F5AC76752853830300203079 /* MyPostGroupViewController.swift in Sources */,
 				F5C605842832155800A87286 /* Database.swift in Sources */,
 				F5C605542832130700A87286 /* ViewController.swift in Sources */,
 				F5B598E32846974A0004399C /* CommentGroup.swift in Sources */,

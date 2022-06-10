@@ -48,7 +48,7 @@ extension PostGroup{    // PlanGroup.swift
         database.saveChange(post: post, action: action)
     }
 }
-extension PostGroup{     // PlanGroup.swift
+extension PostGroup{
     func getPosts(fieldTitle:String?) -> [Post] {
         
         // 해당 게시판의 글만 가져온다.
@@ -61,6 +61,21 @@ extension PostGroup{     // PlanGroup.swift
             }
             
             return postForField
+        }
+        return posts
+    }
+    
+    func getPosts(userEmail:String?) -> [Post]{
+        
+        if let userEmail = userEmail{
+            var postForUser: [Post] = []
+            for post in posts{
+                if post.userId == userEmail {
+                    postForUser.append(post)
+                }
+            }
+            
+            return postForUser
         }
         return posts
     }

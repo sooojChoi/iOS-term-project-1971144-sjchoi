@@ -27,6 +27,7 @@ class MyPageViewController: UIViewController {
     
     var tableViewData:[String]?
     @IBOutlet weak var myTableView: UITableView!
+    
    
     // 내 정보 수정하기 버튼 눌림
     @IBAction func modifyMyInfoAction(_ sender: UIButton) {
@@ -96,6 +97,13 @@ extension MyPageViewController:UITableViewDataSource{
     
 }
 extension MyPageViewController:UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("selected cell \(indexPath.row)")
+        let svc = self.storyboard?.instantiateViewController(withIdentifier: "MyPostGroupViewController") as! MyPostGroupViewController
+        svc.myEmail = storedEmail
+        navigationController?.pushViewController(svc, animated: true)
+
+    }
     
 }
 
