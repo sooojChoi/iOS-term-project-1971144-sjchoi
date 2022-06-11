@@ -43,12 +43,10 @@ protocol PostFieldDatabase{
 protocol UserDatabase{
     init(userParentNotification: ((User?, DbAction?) -> Void)? )
     
-    // PostField를 읽어 parentNotification를 호출하여 부모에게 알림
     func queryUser()
     
     func queryUserByEmail(email:String)
     
-    // 데이터베이스에 postField를 변경하고 parentNotification를 호출하여 부모에게 알림
     func saveUserChange(user: User, action:DbAction)
 }
 
@@ -56,23 +54,31 @@ protocol UserDatabase{
 protocol CommentDatabase{
     init(commentParentNotification: ((Comment?, DbAction?) -> Void)? )
     
-    // PostField를 읽어 parentNotification를 호출하여 부모에게 알림
     func queryComment()
     
     func queryCommentByPostId(id:String)
     
-    // 데이터베이스에 postField를 변경하고 parentNotification를 호출하여 부모에게 알림
     func saveCommentChange(comment: Comment, action:DbAction)
 }
 
 protocol ScrapDatabase{
     init(scrapParentNotification: ((Scrap?, DbAction?) -> Void)? )
     
-    // PostField를 읽어 parentNotification를 호출하여 부모에게 알림
     func queryScrap()
     
     func queryScrapByUserEmail(email:String)
     
-    // 데이터베이스에 postField를 변경하고 parentNotification를 호출하여 부모에게 알림
     func saveScrapChange(scrap: Scrap, action:DbAction)
+}
+
+protocol LikeDatabase{
+    init(likeParentNotification: ((Like?, DbAction?) -> Void)? )
+    
+    // PostField를 읽어 parentNotification를 호출하여 부모에게 알림
+    func queryLike()
+    
+    func queryLikeByUserEmail(email:String)
+    
+    // 데이터베이스에 postField를 변경하고 parentNotification를 호출하여 부모에게 알림
+    func saveLikeChange(like: Like, action:DbAction)
 }

@@ -58,6 +58,9 @@ class PostDetailViewController: UIViewController {
     var scrapGroup: ScrapGroup?
     var scrap: Scrap?
 
+    var likeGroup: LikeGroup?
+    var like: Like?
+    
     var rightBarButton: UIBarButtonItem!
     var barDropDown = DropDown()
     
@@ -143,6 +146,17 @@ class PostDetailViewController: UIViewController {
         }else{
             let image = UIImage(systemName: "bookmark")
             scrapButton.setImage(image, for: .normal)
+        }
+        
+        likeGroup = LikeGroup(likeParentNotification: likeReceivingNotification)
+        likeGroup?.queryDataByEmail(email: storedEmail ?? "")
+        
+        if(likeGroup?.isLikeByPostKey(postKey: post?.key ?? "nothing", userEmail: storedEmail) == true){
+            let image = UIImage(systemName: "hand.thumbsup.fill")
+            likeButton.setImage(image, for: .normal)
+        }else{
+            let image = UIImage(systemName: "hand.thumbsup")
+            likeButton.setImage(image, for: .normal)
         }
     }
     
@@ -231,6 +245,20 @@ class PostDetailViewController: UIViewController {
                 }
             }
             
+        }
+    }
+    func likeReceivingNotification(like: Like?, action: DbAction?){
+        if(like?.userEmail == storedEmail){
+            if(like?.postKey == post?.key){
+                self.like = like
+                if action == .Add {
+                    let image = UIImage(systemName: "hand.thumbsup.fill")
+                    likeButton.setImage(image, for: .normal)
+                }else if action == .Delete {
+                    let image = UIImage(systemName: "hand.thumbsup")
+                    likeButton.setImage(image, for: .normal)
+                }
+            }
         }
     }
     
@@ -407,11 +435,31 @@ extension PostDetailViewController{
     // 해당 게시글에 "좋아요(공감하기)" 버튼을 누르는 함수
     @IBAction func likeButtonAction(_ sender: UIButton) {
         print("like button is clicked.")
-        let likes = Int(post!.likes)
-        let result = likes! + 1
-        post!.likes = String(result)
-        print(result)
-        saveChangeDelegate!(post!, "Modify")
+        
+        
+        if likeGroup?.isLikeByPostKey(postKey: post?.key, userEmail: storedEmail) == true {
+            let likes = Int(post!.likes)
+            let result = likes! - 1
+            post!.likes = String(result)
+            print(result)
+            saveChangeDelegate!(post!, "Modify")
+            
+            let like = like?.clone()
+            like?.postKey = post?.key ?? ""
+            like?.userEmail = storedEmail ?? ""
+            likeGroup?.saveChange(like: like!, action: .Delete)
+        }else{
+            let likes = Int(post!.likes)
+            let result = likes! + 1
+            post!.likes = String(result)
+            print(result)
+            saveChangeDelegate!(post!, "Modify")
+            
+            let like = Like(withData: false)
+            like.postKey = post?.key ?? ""
+            like.userEmail = storedEmail ?? ""
+            likeGroup?.saveChange(like: like, action: .Add)
+        }
         
     }
     

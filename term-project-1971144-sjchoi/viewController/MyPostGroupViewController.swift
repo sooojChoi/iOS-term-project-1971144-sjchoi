@@ -86,6 +86,7 @@ extension MyPostGroupViewController: UITableViewDataSource {
         (cell?.contentView.subviews[4] as! UILabel).text = String(post.likes)
         (cell?.contentView.subviews[5] as! UILabel).text = String(post.numOfComments)
         (cell?.contentView.subviews[7] as! UILabel).text = post.kind
+        (cell?.contentView.subviews[9] as! UILabel).text = String(post.numOfScrap)
         
         
         return cell!

@@ -97,10 +97,4 @@ extension ScrapGroup{
             scraps.remove(at: index)
         }
     }
-    func changeScrap(from: Scrap, to: Scrap){
-        if let fromIndex = find(from.key), let toIndex = find(to.key) {
-            scraps[fromIndex] = to
-            scraps[toIndex] = from
-        }
-    }
 }
