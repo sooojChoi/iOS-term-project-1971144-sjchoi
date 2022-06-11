@@ -36,7 +36,7 @@ class PostFieldGroup: NSObject{
     }
 }
 
-extension PostFieldGroup{    // PlanGroup.swift
+extension PostFieldGroup{
     
     func queryData(){
         postFields.removeAll()    // 새로운 쿼리에 맞는 데이터를 채우기 위해 기존 데이터를 전부 지운다
@@ -63,13 +63,13 @@ extension PostFieldGroup{    // PlanGroup.swift
         database.saveFieldChange(postField: postField, action: action)
     }
 }
-extension PostFieldGroup{     // PlanGroup.swift
+extension PostFieldGroup{
     func getPostFields() -> [PostField] {
         
         return postFields
     }
 }
-extension PostFieldGroup{     // PlanGroup.swift
+extension PostFieldGroup{
     
     private func count() -> Int{ return postFields.count }
     

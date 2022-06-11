@@ -25,11 +25,11 @@ class Post: NSObject, NSCoding{
     var content: String;
     var kind: String;
     var likes: String
-    var numOfComments:String;
+    var numOfComments:String;  var numOfScrap:String;
     var userId:String;
    
     
-    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:String, numOfComments: String, userId: String){
+    init(date: Date, owner: String?,title:String, content: String,kind: String, likes:String, numOfComments: String,numOfScrap:String, userId: String){
         self.key = UUID().uuidString   // 거의 unique한 id를 만들어 낸다.
         self.date = Date(timeInterval: 0, since: date)
         self.owner = owner;
@@ -40,6 +40,7 @@ class Post: NSObject, NSCoding{
         self.likes = likes
         self.userId = userId
    
+        self.numOfScrap = numOfScrap;
         self.numOfComments = numOfComments;
         super.init()
     }
@@ -52,6 +53,7 @@ class Post: NSObject, NSCoding{
         aCoder.encode(kind, forKey: "kind")
         aCoder.encode(content, forKey: "content")
         aCoder.encode(likes, forKey: "likes")
+        aCoder.encode(numOfScrap, forKey: "numOfScrap")
         aCoder.encode(numOfComments, forKey: "numOfComments")
         aCoder.encode(title, forKey: "title")
         aCoder.encode(userId, forKey:"userId")
@@ -68,8 +70,7 @@ class Post: NSObject, NSCoding{
         userId = aDecoder.decodeObject(forKey: "userId") as? String ?? ""
         likes = aDecoder.decodeObject(forKey: "likes") as? String ?? ""
         numOfComments = aDecoder.decodeObject(forKey: "numOfComments") as? String ?? ""
-        
-        
+        numOfScrap = aDecoder.decodeObject(forKey: "numOfScrap") as? String ?? ""
         
         super.init()
     }
@@ -98,16 +99,16 @@ extension Post{
             index = Int(arc4random_uniform(UInt32(owners.count)))
             let owner = owners[index]
             
-            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: "0",  numOfComments: "0", userId:"")
+            self.init(date: Date(), owner: owner, title: title, content: content, kind: kind,likes: "0",  numOfComments: "0",numOfScrap:"0", userId:"")
             
         }else{
-            self.init(date: Date(), owner: "", title: "", content: "", kind: "",likes: "0", numOfComments: "0", userId: "")
+            self.init(date: Date(), owner: "", title: "", content: "", kind: "",likes: "0", numOfComments: "0",numOfScrap:"0", userId: "")
 
         }
     }
 }
 
-extension Post{        // Plan.swift
+extension Post{
     func clone() -> Post {
         let clonee = Post()
 
@@ -119,6 +120,7 @@ extension Post{        // Plan.swift
         clonee.content = self.content
         clonee.likes = self.likes
         clonee.numOfComments = self.numOfComments
+        clonee.numOfScrap = self.numOfScrap
         clonee.userId = self.userId
         
         return clonee

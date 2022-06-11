@@ -10,8 +10,8 @@ import Firebase
 
 class PostDbFirebase: Database {
     
-    var reference: CollectionReference                    // firestore에서 데이터베이스 위치
-    var parentNotification: ((Post?, DbAction?) -> Void)? // PlanGroupViewController에서 설정
+    var reference: CollectionReference                    
+    var parentNotification: ((Post?, DbAction?) -> Void)?
     var existQuery: ListenerRegistration?
     
 
@@ -39,7 +39,7 @@ class PostDbFirebase: Database {
             reference.document(post.key).delete()    // key로된 plan을 지운다
             return
         }
-        // plan을 아카이빙한다.
+        
         let data = try? NSKeyedArchiver.archivedData(withRootObject: post, requiringSecureCoding: false)
 
         // 저장 형태로 만든다

@@ -26,12 +26,15 @@ class PostDetailViewController: UIViewController {
     @IBOutlet weak var contentsLabel: UILabel!
     @IBOutlet weak var numOfCommentsLabel: UILabel!
     @IBOutlet weak var likesLabel: UILabel!
+    @IBOutlet weak var numOfScrapLabel: UILabel!
     
     @IBOutlet weak var textView: UITextField!
     @IBOutlet weak var textFieldStackView: UIStackView!
     @IBOutlet weak var commentsTableView: UITableView!
     
     @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var scrapButton: UIButton!
+    @IBOutlet weak var scrapImageView: UIImageView!
     
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     var originalTableViewHeight:CGFloat?
@@ -51,6 +54,9 @@ class PostDetailViewController: UIViewController {
     var userGroup:UserGroup?
     var user: User?
     var storedEmail:String?
+    
+    var scrapGroup: ScrapGroup?
+    var scrap: Scrap?
 
     var rightBarButton: UIBarButtonItem!
     var barDropDown = DropDown()
@@ -71,6 +77,10 @@ class PostDetailViewController: UIViewController {
         likeButton.layer.cornerRadius = 5
         likeButton.layer.borderWidth = 1
         likeButton.layer.borderColor = likeButton.layer.backgroundColor
+        
+        scrapButton.layer.cornerRadius = 5
+        scrapButton.layer.borderWidth = 1
+        scrapButton.layer.borderColor = scrapButton.layer.backgroundColor
 
         post = post ?? Post(withData: true)
         dateLabel.text = post?.date.toStringDateTime()
@@ -79,7 +89,7 @@ class PostDetailViewController: UIViewController {
         contentsLabel.text = post?.content
         numOfCommentsLabel.text = String(post?.numOfComments ?? "0")
         likesLabel.text = String(post?.likes ?? "0")
-    
+        numOfScrapLabel.text = String(post?.numOfScrap ?? "0")
         
         postGroup = PostGroup(parentNotification: receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
         postGroup.queryData()
@@ -123,6 +133,17 @@ class PostDetailViewController: UIViewController {
         userGroup?.queryDataByEmail(email: storedEmail ?? "")
         user = userGroup?.getUser(email: storedEmail)
         
+        scrapGroup = ScrapGroup(scrapParentNotification: scrapReceivingNotification)
+        scrapGroup?.queryDataByEmail(email: storedEmail ?? "")
+        
+        let scrapPostKeys = scrapGroup?.getPostKeysByEmail(email: storedEmail)
+        if ((scrapPostKeys?.contains(post?.key ?? "nothing")) == true) {
+            let image = UIImage(systemName: "bookmark.fill")
+            scrapButton.setImage(image, for: .normal)
+        }else{
+            let image = UIImage(systemName: "bookmark")
+            scrapButton.setImage(image, for: .normal)
+        }
     }
     
     
@@ -166,6 +187,7 @@ class PostDetailViewController: UIViewController {
             contentsLabel.text = post?.content
             numOfCommentsLabel.text = String(post?.numOfComments ?? "0")
             likesLabel.text = String(post?.likes ?? "0")
+            numOfScrapLabel.text = String(post?.numOfScrap ?? "0")
         
         }
      
@@ -185,15 +207,30 @@ class PostDetailViewController: UIViewController {
 //        scrollView.setContentOffset(currentScrollViewOffset ?? scrollView.contentOffset, animated: false)
         
     }
-    func reload(tableView: UITableView) {
-        let contentOffset = tableView.contentOffset
-        tableView.reloadData()
-        tableView.layoutIfNeeded()
-        tableView.setContentOffset(contentOffset, animated: false)
-    }
+//    func reload(tableView: UITableView) {
+//        let contentOffset = tableView.contentOffset
+//        tableView.reloadData()
+//        tableView.layoutIfNeeded()
+//        tableView.setContentOffset(contentOffset, animated: false)
+//    }
     func userReceivingNotification(user: User?, action: DbAction?){
         if(user?.email == storedEmail){
             self.user = user
+        }
+    }
+    func scrapReceivingNotification(scrap: Scrap?, action: DbAction?){
+        if(scrap?.userEmail == storedEmail){
+            if(scrap?.postKey == post?.key){
+                self.scrap = scrap
+                if action == .Add {
+                    let image = UIImage(systemName: "bookmark.fill")
+                    scrapButton.setImage(image, for: .normal)
+                }else if action == .Delete {
+                    let image = UIImage(systemName: "bookmark")
+                    scrapButton.setImage(image, for: .normal)
+                }
+            }
+            
         }
     }
     
@@ -377,7 +414,41 @@ extension PostDetailViewController{
         saveChangeDelegate!(post!, "Modify")
         
     }
+    
+    // 해당 게시글을 스크랩 한다.
+    @IBAction func ScrapButtonClickAction(_ sender: UIButton) {
+        let scrapPostKeys = scrapGroup?.getPostKeysByEmail(email: storedEmail)
+        if ((scrapPostKeys?.contains(post?.key ?? "")) == true) {
+            let numOfScrap = Int(post!.numOfScrap)
+            let result = numOfScrap! - 1
+            post!.numOfScrap = String(result)
+            saveChangeDelegate!(post!, "Modify")
+            
+            // 스크랩 데이터베이스에서 제거한다.
+            let scrap = scrap?.clone()
+            scrap?.postKey = post?.key ?? ""
+            scrap?.userEmail = storedEmail ?? ""
+            scrapGroup?.saveChange(scrap: scrap!, action: .Delete)
+        }else{
+            let numOfScrap = Int(post!.numOfScrap)
+            let result = numOfScrap! + 1
+            post!.numOfScrap = String(result)
+            saveChangeDelegate!(post!, "Modify")
+            
+            // 스크랩 데이터베이스에 추가한다.
+            let scrap = Scrap(withData: false)
+            scrap.postKey = post?.key ?? ""
+            scrap.userEmail = storedEmail ?? ""
+            scrapGroup?.saveChange(scrap: scrap, action: .Add)
+        }
+       
+       
+        
+      
+    }
+    
 }
+
 
 
 

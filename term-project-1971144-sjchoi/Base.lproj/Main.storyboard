@@ -406,7 +406,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BjV-zz-dzA">
+                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="251" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="BjV-zz-dzA">
                                                 <rect key="frame" x="0.0" y="137" width="384" height="16"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="message" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nHX-uP-7mO">
@@ -425,7 +425,7 @@
                                                         <color key="textColor" systemColor="systemBlueColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hand.thumbsup" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nr0-fO-xPW">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="hand.thumbsup" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nr0-fO-xPW">
                                                         <rect key="frame" x="59" y="-1" width="16" height="17"/>
                                                         <color key="tintColor" red="1" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                         <constraints>
@@ -434,32 +434,42 @@
                                                         </constraints>
                                                         <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="8" bottom="8" trailing="20"/>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMn-nm-bAC">
-                                                        <rect key="frame" x="80" y="0.0" width="304" height="16"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NMn-nm-bAC">
+                                                        <rect key="frame" x="80" y="0.0" width="33" height="16"/>
                                                         <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="8" bottom="8" trailing="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <color key="textColor" red="1" green="0.1176470588" blue="0.1176470588" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="bookmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="U5G-4a-XHI">
+                                                        <rect key="frame" x="118" y="0.0" width="17.5" height="16"/>
+                                                        <color key="tintColor" red="1" green="0.43850540830000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HcW-fI-CaG">
+                                                        <rect key="frame" x="140.5" y="0.0" width="243.5" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="1" green="0.43850540830000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="EWC-mz-6qf">
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="EWC-mz-6qf">
                                                 <rect key="frame" x="0.0" y="168" width="384" height="31"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JPp-o6-MQC">
-                                                        <rect key="frame" x="0.0" y="0.0" width="79" height="31"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="184.5" height="31"/>
                                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                                                         <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="8" bottom="8" trailing="20"/>
                                                         <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" titleAlignment="center">
                                                             <imageReference key="image" image="hand.thumbsup" catalog="system" symbolScale="default"/>
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage"/>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium"/>
                                                             <attributedString key="attributedTitle">
-                                                                <fragment content="공감하기">
+                                                                <fragment content=" 공감하기">
                                                                     <attributes>
-                                                                        <font key="NSFont" size="11" name="AppleSDGothicNeo-Regular"/>
+                                                                        <font key="NSFont" size="10" name="AppleSDGothicNeo-Regular"/>
                                                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                                     </attributes>
                                                                 </fragment>
@@ -468,6 +478,29 @@
                                                         </buttonConfiguration>
                                                         <connections>
                                                             <action selector="likeButtonAction:" destination="a26-Vq-FIU" eventType="touchUpInside" id="AAm-uG-JFE"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T4l-LB-RjJ">
+                                                        <rect key="frame" x="199.5" y="0.0" width="184.5" height="31"/>
+                                                        <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <directionalEdgeInsets key="directionalLayoutMargins" top="20" leading="8" bottom="8" trailing="20"/>
+                                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" titleAlignment="center">
+                                                            <imageReference key="image" image="bookmark" catalog="system" symbolScale="default"/>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium"/>
+                                                            <attributedString key="attributedTitle">
+                                                                <fragment content=" 스크랩">
+                                                                    <attributes>
+                                                                        <font key="NSFont" size="10" name="AppleSDGothicNeo-Regular"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <color key="baseForegroundColor" red="1" green="0.43850540826682244" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="ScrapButtonClickAction:" destination="a26-Vq-FIU" eventType="touchUpInside" id="TAU-rZ-7AE"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -621,6 +654,9 @@
                         <outlet property="likeButton" destination="JPp-o6-MQC" id="NjJ-Uu-k1Q"/>
                         <outlet property="likesLabel" destination="NMn-nm-bAC" id="PwV-1R-DBj"/>
                         <outlet property="numOfCommentsLabel" destination="CDH-1m-jCJ" id="L8o-mW-Ra5"/>
+                        <outlet property="numOfScrapLabel" destination="HcW-fI-CaG" id="9q2-SV-ZBw"/>
+                        <outlet property="scrapButton" destination="T4l-LB-RjJ" id="QBc-1s-Nii"/>
+                        <outlet property="scrapImageView" destination="U5G-4a-XHI" id="lP4-SH-05h"/>
                         <outlet property="scrollView" destination="ppX-JR-0PL" id="LYc-v8-p8H"/>
                         <outlet property="tableViewHeight" destination="tuc-HQ-guc" id="5JM-O4-gLp"/>
                         <outlet property="textFieldStackView" destination="INR-Wr-h4f" id="SIJ-5t-Hht"/>
@@ -932,7 +968,7 @@
                                     <action selector="LogOutAction:" destination="rfH-Ce-z7J" eventType="touchUpInside" id="Fyc-Ug-xgE"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="작성한 게시글" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJc-qH-cVW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="나만의 게시글" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJc-qH-cVW">
                                 <rect key="frame" x="16" y="221" width="108.5" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -1071,7 +1107,6 @@
         <!--My Post Group View Controller-->
         <scene sceneID="mOT-pW-fUy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IpL-8d-yqd" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="MyPostGroupViewController" hidesBottomBarWhenPushed="YES" id="vSv-GT-Hpc" customClass="MyPostGroupViewController" customModule="term_project_1971144_sjchoi" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NB6-DE-wG9">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -1190,14 +1225,17 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navigationTitle" destination="aGk-Bb-8rl" id="WlK-mf-m43"/>
                         <outlet property="postTableView" destination="2Hk-gr-o11" id="E60-gU-EBc"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IpL-8d-yqd" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="930" y="-1385"/>
         </scene>
     </scenes>
     <resources>
+        <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="hand.thumbsup" catalog="system" width="128" height="128"/>
         <image name="house" catalog="system" width="128" height="106"/>

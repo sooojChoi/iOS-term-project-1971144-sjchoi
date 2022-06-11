@@ -8,20 +8,18 @@
 import Foundation
 
 class PostGroup: NSObject{
-    var posts = [Post]()            // var plans: [Plan] = []와 동일, 퀴리를 만족하는 plan들만 저장한다.
+    var posts = [Post]()
     var database: Database!
     var parentNotification: ((Post?, DbAction?) -> Void)?
     
     init(parentNotification: ((Post?, DbAction?) -> Void)? ){
         super.init()
         self.parentNotification = parentNotification
-        //database = DbMemory(parentNotification: receivingNotification) // 데이터베이스 생성
         database = PostDbFirebase(parentNotification: receivingNotification)
     }
     func receivingNotification(post: Post?, action: DbAction?){
-        // 데이터베이스로부터 메시지를 받고 이를 부모에게 전달한다
         if let post = post{
-            switch(action){    // 액션에 따라 적절히     plans에 적용한다
+            switch(action){
                 case .Add: addPost(post: post)
                 case .Modify: modifyPost(modifiedPost: post)
                 case .Delete: removePost(removedPost: post)
@@ -29,22 +27,20 @@ class PostGroup: NSObject{
             }
         }
         if let parentNotification = parentNotification{
-            parentNotification(post, action) // 역시 부모에게 알림내용을 전달한다.
+            parentNotification(post, action)
         }
     }
 }
 
-extension PostGroup{    // PlanGroup.swift
+extension PostGroup{
     
     func queryData(){
-        posts.removeAll()    // 새로운 쿼리에 맞는 데이터를 채우기 위해 기존 데이터를 전부 지운다
+        posts.removeAll()
        
         database.queryPost()
     }
     
     func saveChange(post: Post, action: DbAction){
-        // 단순히 데이터베이스에 변경요청을 하고 plans에 대해서는
-        // 데이터베이스가 변경알림을 호출하는 receivingNotification에서 적용한다
         database.saveChange(post: post, action: action)
     }
 }
@@ -65,6 +61,7 @@ extension PostGroup{
         return posts
     }
     
+    // 내가 작성한 게시글만 가져온다.
     func getPosts(userEmail:String?) -> [Post]{
         
         if let userEmail = userEmail{
@@ -76,6 +73,22 @@ extension PostGroup{
             }
             
             return postForUser
+        }
+        return posts
+    }
+    
+    // 내가 스크랩한 글만 가져오기 위해 만든 함수
+    func getPosts(postKeys:[String]?) -> [Post]{
+        var postForKey: [Post] = []
+        if let postKeys = postKeys {
+            for post in posts{
+                for postKey in postKeys {
+                    if(post.key == postKey){
+                        postForKey.append(post)
+                    }
+                }
+            }
+            return postForKey
         }
         return posts
     }

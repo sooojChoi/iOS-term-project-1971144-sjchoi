@@ -21,7 +21,12 @@ class MyPostGroupViewController: UIViewController {
     @IBOutlet weak var postTableView: UITableView!
     var postGroup: PostGroup!
     
+    var sceneSort: String?
+    
     var myEmail:String?
+    var postKeys:[String]?
+    
+    @IBOutlet weak var navigationTitle: UINavigationItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +38,13 @@ class MyPostGroupViewController: UIViewController {
 
         postGroup = PostGroup(parentNotification: receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
         postGroup.queryData()
+        
+        if sceneSort == "MyPosts" {
+            navigationTitle.title = "나의 게시글"
+        }else{
+            navigationTitle.title = "스크랩한 게시글"
+        }
+        
     }
     
     func receivingNotification(post: Post?, action: DbAction?){
@@ -48,7 +60,12 @@ extension MyPostGroupViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if let postGroup = postGroup{
-            return postGroup.getPosts(userEmail: myEmail).count
+            if(sceneSort == "MyPosts"){
+                return postGroup.getPosts(userEmail: myEmail).count
+            }else{
+                return postGroup.getPosts(postKeys: postKeys).count
+            }
+            
         }
         return 0
     }
@@ -56,7 +73,12 @@ extension MyPostGroupViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostTableViewCell")
-        let post = postGroup.getPosts(userEmail: myEmail)[indexPath.row]
+        let post: Post
+        if(sceneSort == "MyPosts"){
+            post = postGroup.getPosts(userEmail: myEmail)[indexPath.row]
+        }else{
+            post = postGroup.getPosts(postKeys: postKeys)[indexPath.row]
+        }
 
         (cell?.contentView.subviews[0] as! UILabel).text = post.title
         (cell?.contentView.subviews[1] as! UILabel).text = post.content
@@ -79,8 +101,12 @@ extension MyPostGroupViewController: UITableViewDelegate{
         print("selected cell \(indexPath.row)")
         let svc = self.storyboard?.instantiateViewController(withIdentifier: "PostDatailViewController") as! PostDetailViewController
         svc.saveChangeDelegate = saveChange
-        svc.post = postGroup.getPosts(userEmail: myEmail)[postTableView.indexPathForSelectedRow!.row].clone()
-        
+        if(sceneSort == "MyPosts"){
+            svc.post = postGroup.getPosts(userEmail: myEmail)[postTableView.indexPathForSelectedRow!.row].clone()
+        }else{
+            svc.post = postGroup.getPosts(postKeys: postKeys)[postTableView.indexPathForSelectedRow!.row].clone()
+        }
+       
         navigationController?.pushViewController(svc, animated: true)
 
     }

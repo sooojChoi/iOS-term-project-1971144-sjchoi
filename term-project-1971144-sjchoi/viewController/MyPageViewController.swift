@@ -25,6 +25,9 @@ class MyPageViewController: UIViewController {
     var user: User?
     var storedEmail: String?
     
+    var scrapGroup: ScrapGroup?
+    var scrap: Scrap?
+    
     var tableViewData:[String]?
     @IBOutlet weak var myTableView: UITableView!
     
@@ -58,16 +61,19 @@ class MyPageViewController: UIViewController {
         storedEmail = UserDefaults.standard.string(forKey: "email")
         self.emailLabel.text = storedEmail ?? ""
         
-        userGroup = UserGroup(userParentNotification: self.receivingNotification) // 변경이 생기면 해당 함수를 호출하도록..
+        userGroup = UserGroup(userParentNotification: self.receivingNotification)
         userGroup?.queryDataByEmail(email: storedEmail ?? "")
         
         user = userGroup?.getUser(email: storedEmail)
         nameLabe.text = user?.name
         
+        scrapGroup = ScrapGroup(scrapParentNotification: scrapReceivingNotification)
+        scrapGroup?.queryDataByEmail(email: storedEmail ?? "")
+        
         myTableView.dataSource = self
         myTableView.delegate = self
         
-        tableViewData = ["내가 작성한 게시글"]
+        tableViewData = ["내가 작성한 게시글", "스크랩한 게시글"]
      
     }
     
@@ -75,6 +81,12 @@ class MyPageViewController: UIViewController {
         if(user?.email == storedEmail){
             self.user = user
             nameLabe.text = user?.name
+        }
+    }
+    
+    func scrapReceivingNotification(scrap: Scrap?, action: DbAction?){
+        if(scrap?.userEmail == storedEmail){
+            self.scrap = scrap
         }
     }
     
@@ -98,11 +110,19 @@ extension MyPageViewController:UITableViewDataSource{
 }
 extension MyPageViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("selected cell \(indexPath.row)")
-        let svc = self.storyboard?.instantiateViewController(withIdentifier: "MyPostGroupViewController") as! MyPostGroupViewController
-        svc.myEmail = storedEmail
-        navigationController?.pushViewController(svc, animated: true)
-
+        
+        if(indexPath.row == 0){
+            let svc = self.storyboard?.instantiateViewController(withIdentifier: "MyPostGroupViewController") as! MyPostGroupViewController
+            svc.myEmail = storedEmail
+            svc.sceneSort = "MyPosts"
+            navigationController?.pushViewController(svc, animated: true)
+        }else{
+            let svc = self.storyboard?.instantiateViewController(withIdentifier: "MyPostGroupViewController") as! MyPostGroupViewController
+            svc.sceneSort = "MyScraps"
+            svc.postKeys = scrapGroup?.getPostKeysByEmail(email: storedEmail)
+            navigationController?.pushViewController(svc, animated: true)
+        }
+      
     }
     
 }
